@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "sheeplib",
+  "name": "SheepLib",
+  "version": "$version",
+  "license": "LGPL-3.0-only",
+  "contact": {
+    "homepage": "https://noxcrew.com",
+    "discord": "https://discord.gg/mcc"
+  },
+  "description": "An in-game HUD library for Fabric",
+  "authors": [
+    "Noxcrew",
+    {
+      "name": "Lucy Poulton (lucyy.p)",
+      "contact": {
+        "email": "lucy.poulton@noxcrew.com"
+      }
+    }
+  ],
+  "mixins": [ "sheeplib.mixins.json" ],
+  "environment": "client",
+  "accessWidener": "sheeplib.accessWidener",
+  "depends": {
+    "fabric-api": "*"
+
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ],
+      "links": {
+        "modmenu.discord": "https://discord.gg/mcc"
+      }
+    }
+  }
+}

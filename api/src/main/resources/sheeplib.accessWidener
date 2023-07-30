@@ -1,0 +1,4 @@
+accessWidener	v1	named
+accessible field net/minecraft/world/entity/player/Player DATA_PLAYER_MODE_CUSTOMISATION Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible field net/minecraft/client/gui/screens/Screen renderables Ljava/util/List;
+mutable field net/minecraft/client/gui/screens/Screen renderables Ljava/util/List;

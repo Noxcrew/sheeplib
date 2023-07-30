@@ -1,4 +1,5 @@
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     id("fabric-loom")
@@ -7,6 +8,23 @@ plugins {
 
 // https://github.com/gradle/gradle/issues/15383#issuecomment-779893192
 internal val Project.libs get() = project.extensions.getByName("libs") as LibrariesForLibs
+
+kotlin.explicitApi()
+
+tasks {
+    named<KotlinCompilationTask<*>>("compileKotlin") {
+        compilerOptions {
+            freeCompilerArgs.add("-Xjvm-default=all")
+        }
+    }
+
+    processResources {
+        filesMatching("fabric.mod.json") {
+            expand("version" to project.version)
+        }
+    }
+}
+
 
 repositories {
     mavenCentral()
