@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "sheeplib-test-mod",
+  "name": "SheepLib Test Mod",
+  "version": "$version",
+  "license": "LGPL-3.0-only",
+  "contact": {
+    "homepage": "https://noxcrew.com",
+    "discord": "https://discord.gg/mcc"
+  },
+  "description": "Test mod for SheepLib",
+  "authors": [
+    "Noxcrew",
+    {
+      "name": "Lucy Poulton (lucyy.p)",
+      "contact": {
+        "email": "lucy.poulton@noxcrew.com"
+      }
+    }
+  ],
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.noxcrew.sheeplib.testmod.SheepLibTestMod"
+      }
+    ]
+  },
+  "environment": "client",
+  "depends": {
+    "fabric-api": "*",
+    "sheeplib": "$version"
+  }
+}

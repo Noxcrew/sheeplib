@@ -38,7 +38,7 @@ public class PromptDialog(
         ThemedButton(
             theme.dimensions.buttonWidth,
             theme.dimensions.buttonHeight,
-            Component.translatable("anchor.dialog.ok")
+            Component.translatable("sheeplib.dialog.ok")
         ) {
             close()
         }.at(2, 0)
