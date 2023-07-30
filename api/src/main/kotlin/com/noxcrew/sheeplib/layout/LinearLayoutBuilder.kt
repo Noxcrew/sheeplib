@@ -1,6 +1,6 @@
 package com.noxcrew.sheeplib.layout
 
-import com.noxcrew.sheeplib.dialog.Dialog
+import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.layouts.LayoutSettings
 import net.minecraft.client.gui.layouts.LinearLayout
@@ -51,22 +51,35 @@ public class LinearLayoutBuilder(x: Int, y: Int, width: Int, height: Int, orient
 }
 
 /**
- * Applies a new [LinearLayoutBuilder] to this dialog.
+ * Builds a new linear layout.
+ *
+ * @param width the layout's width
+ * @param height the layout's height
+ * @param orientation the layout's orientation
+ * @param padding the minimum padding between elements. Elements may be spread out further to fill available space.
+ * @param builder the builder
  */
-public inline fun Dialog.linear(
+public inline fun LinearLayout(
+    width: Int,
+    height: Int,
+    orientation: Orientation,
+    padding: Int,
+    builder: LinearLayoutBuilder.() -> Unit,
+): LinearLayout = LinearLayoutBuilder(0, 0, width, height, orientation, padding)
+    .also(builder)
+    .build()
+
+/**
+ * Builds a new linear layout, using spacing from this theme.
+ *
+ * @param width the layout's width
+ * @param height the layout's height
+ * @param orientation the layout's orientation
+ * @param builder the builder
+ */
+public inline fun Themed.linear(
     width: Int,
     height: Int,
     orientation: Orientation,
     builder: LinearLayoutBuilder.() -> Unit
-): LinearLayout =
-
-    LinearLayoutBuilder(
-        x + theme.dimensions.paddingOuter,
-        y + theme.dimensions.paddingOuter,
-        width,
-        height,
-        orientation,
-        theme.dimensions.paddingInner
-    )
-        .also(builder)
-        .build()
+): LinearLayout = LinearLayout(width, height, orientation, theme.dimensions.paddingInner, builder)

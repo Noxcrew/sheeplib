@@ -1,7 +1,7 @@
 package com.noxcrew.sheeplib.layout
 
 import com.noxcrew.sheeplib.LayoutConstants
-import com.noxcrew.sheeplib.dialog.Dialog
+import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.gui.layouts.GridLayout
 import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.layouts.LayoutSettings
@@ -87,14 +87,19 @@ public class GridLayoutBuilder(
 }
 
 /**
- * Applies a new [GridLayoutBuilder] to this dialog.
+ * Builds a new grid layout.
+ * @param spacing the spacing between elements
+ * @param builder the builder
  */
-// FIXME: this is not specific to Dialog. same with linear equivalent
-public inline fun Dialog.grid(builder: GridLayoutBuilder.() -> Unit): GridLayout =
-    GridLayoutBuilder(
-        x + theme.dimensions.paddingOuter,
-        y + theme.dimensions.paddingOuter,
-        theme.dimensions.paddingInner
-    )
+public inline fun GridLayout(spacing: Int, builder: GridLayoutBuilder.() -> Unit): GridLayout =
+    GridLayoutBuilder(0, 0, spacing)
         .also(builder)
         .build()
+
+/**
+ * Builds a new grid layout, using spacing from this theme.
+ * @param builder the builder for the grid
+ */
+public inline fun Themed.grid(builder: GridLayoutBuilder.() -> Unit): GridLayout =
+    GridLayout(theme.dimensions.paddingInner, builder)
+
