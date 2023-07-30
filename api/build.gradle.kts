@@ -1,0 +1,4 @@
+plugins {
+    id("sheeplib.fabric")
+}
+
