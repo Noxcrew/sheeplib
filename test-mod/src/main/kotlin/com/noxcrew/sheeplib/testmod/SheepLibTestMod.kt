@@ -3,7 +3,6 @@ package com.noxcrew.sheeplib.testmod
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.noxcrew.sheeplib.DialogContainer
-import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.dialog.PromptDialog
 import com.noxcrew.sheeplib.theme.Theme
 import net.fabricmc.api.ClientModInitializer
@@ -18,7 +17,7 @@ public object SheepLibTestMod : ClientModInitializer {
     /**
      * A map of dialog names that can be opened through the command.
      */
-    private val dialogs = mapOf<String, (Int, Int) -> Dialog>(
+    private val dialogs = mapOf(
         "prompt" to { x, y ->
             PromptDialog(
                 x, y,
@@ -28,7 +27,8 @@ public object SheepLibTestMod : ClientModInitializer {
             )
         },
 
-        "components" to ::ComponentsDialog
+        "components" to ::ComponentsDialog,
+        "example" to ::MyFirstDialog
     )
 
 

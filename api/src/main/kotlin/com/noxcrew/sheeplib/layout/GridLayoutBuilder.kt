@@ -21,15 +21,10 @@ public class GridLayoutBuilder(
     private val layout = GridLayout(x, y).spacing(spacing)
     public override fun build(): GridLayout = layout
 
-    /**
-     * Adds an element at a specific row and column, spanning a single row and column.
-     */
-    public fun <T : LayoutElement> T.at(row: Int, col: Int): T = at(row, col, 1, 1)
-
     private var lastRow = -1
 
     /**
-     * Adds an element at a specific row and column, spanning a single row and column.
+     * Adds an element at a specific row and column.
      *
      * @param row the row to add this element at
      * @param col the column to add this element at
@@ -39,8 +34,8 @@ public class GridLayoutBuilder(
     public fun <T : LayoutElement> T.at(
         row: Int,
         col: Int,
-        rowSpan: Int,
-        colSpan: Int,
+        rowSpan: Int = 1,
+        colSpan: Int = 1,
         settings: LayoutSettings = LayoutConstants.CENTRE
     ): T {
         layout.addChild(this, row, col, rowSpan, colSpan, settings)

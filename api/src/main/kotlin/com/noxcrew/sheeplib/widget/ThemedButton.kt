@@ -27,6 +27,7 @@ public open class ThemedButton(
 ) :
     AbstractWidget(0, 0, width, height, message), Themed by theme {
 
+    // fixme: why the overload?
     public constructor(
         message: Component,
         isEnabled: Boolean = true,
