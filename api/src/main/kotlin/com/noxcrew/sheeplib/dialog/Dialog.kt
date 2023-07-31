@@ -3,6 +3,7 @@ package com.noxcrew.sheeplib.dialog
 import com.mojang.blaze3d.systems.RenderSystem
 import com.noxcrew.sheeplib.CompoundWidget
 import com.noxcrew.sheeplib.DialogContainer
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.Minecraft
@@ -23,6 +24,7 @@ public abstract class Dialog(
     public var parent: Dialog? = null
         private set
 
+    private var hasBeenInitialized = false
     private var dragStartX = -1
     private var dragStartY = -1
 
@@ -98,7 +100,9 @@ public abstract class Dialog(
     private fun titleHeight() = title?.height ?: 0
 
     /**
-     * Sets this dialog up. Must be called by the child class due to constructor ordering.
+     * Initialises the dialog, building its layout and setting its dimensions.
+     * You don't need to call this method when setting up, the [DialogContainer] will do that.
+     * You can call this method at any time to rebuild the dialog.
      */
     protected fun init() {
         dialogLayout = layout()
@@ -109,7 +113,7 @@ public abstract class Dialog(
         width = dialogLayout.width + theme.dimensions.paddingOuter * 2
         height = titleHeight() + dialogLayout.height + theme.dimensions.paddingOuter * 2
 
-        title?.let { addChild(title!!) }
+        title?.let(::addChild)
 
         // re-set x and y to set constraints
         y = y
@@ -117,6 +121,13 @@ public abstract class Dialog(
         children().forEach {
             (it as? DialogTitleWidget)?.onDialogResize()
         }
+
+        hasBeenInitialized = true
+    }
+
+    /** Initialises the dialog if it hasn't been already. */
+    public fun initIfNeeded() {
+        if (!hasBeenInitialized) init()
     }
 
     override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {

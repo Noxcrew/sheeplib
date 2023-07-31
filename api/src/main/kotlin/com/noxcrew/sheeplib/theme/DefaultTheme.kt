@@ -14,7 +14,7 @@ private val colors = ColorsImpl(
     widgetBackgroundPrimary = 0x404040.opaqueColor(),
     widgetBackgroundSecondary = 0x505050.opaqueColor(),
 
-    border = 0x2c2c2c.opaqueColor(),
+    border = 0x1a1a1a.opaqueColor(),
 
     textPrimary = -1,
     textSecondary = 0xa0a0a0.opaqueColor(),
@@ -56,6 +56,12 @@ public val DefaultTheme: ThemeImpl = ThemeImpl(
     ),
     IconsImpl(
         dropdown = Icon(ResourceLocation("sheeplib", "textures/dropdown.png"), 4, 7),
+        close = Icon(
+            ResourceLocation("sheeplib", "textures/close.png"),
+            5,
+            5,
+            ResourceLocation("sheeplib", "textures/close_hover.png"),
+        )
     ),
     true,
 )

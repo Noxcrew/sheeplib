@@ -51,7 +51,10 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     /** Adds a dialog to the container and focuses it. */
     public operator fun <T> plusAssign(dialog: T) where T: GuiEventListener, T: Renderable {
         children += dialog
-        if (dialog is Dialog) focused = dialog
+        if (dialog is Dialog) {
+            dialog.initIfNeeded()
+            focused = dialog
+        }
     }
 
     /** Removes a dialog from the container. */

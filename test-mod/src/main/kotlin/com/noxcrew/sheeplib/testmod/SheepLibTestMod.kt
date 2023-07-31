@@ -10,7 +10,7 @@ import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
-import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.Component.literal
 
 /** A test mod for SheepLib. */
 public object SheepLibTestMod : ClientModInitializer {
@@ -23,10 +23,12 @@ public object SheepLibTestMod : ClientModInitializer {
             PromptDialog(
                 x, y,
                 Theme.Active,
-                Component.literal("Title"),
-                Component.literal("Prompt dialog body"),
+                literal("Title"),
+                literal("Prompt dialog body"),
             )
         },
+
+        "components" to ::ComponentsDialog
     )
 
 

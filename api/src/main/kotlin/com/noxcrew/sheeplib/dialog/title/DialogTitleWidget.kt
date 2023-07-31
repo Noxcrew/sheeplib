@@ -1,5 +1,6 @@
-package com.noxcrew.sheeplib.dialog
+package com.noxcrew.sheeplib.dialog.title
 
+import com.noxcrew.sheeplib.dialog.Dialog
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.layouts.LayoutElement
 import net.minecraft.client.gui.navigation.ScreenRectangle
@@ -19,9 +20,7 @@ public interface DialogTitleWidget: LayoutElement, GuiEventListener {
     /**
      * Called when the parent dialog [dialog] is resized.
      */
-    public fun onDialogResize() {
-
-    }
+    public fun onDialogResize(): Unit = Unit
 
     override fun getRectangle(): ScreenRectangle = super<LayoutElement>.getRectangle()
 }

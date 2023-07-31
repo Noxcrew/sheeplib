@@ -18,7 +18,8 @@ public data class ColorsImpl(
 
 /** A data class implementation of [Theme.Icons]. */
 public data class IconsImpl(
-    override val dropdown: Icon
+    override val dropdown: Icon,
+    override val close: Icon,
 ) : Theme.Icons
 
 /** A data class implementation of [Theme]. */

@@ -99,6 +99,9 @@ public interface Theme : Themed {
     public interface Icons {
         /** An "open the dropdown" icon. The default impl is a downwards arrow. */
         public val dropdown: Icon
+
+        /** An icon for closing things. The default is a 5x5 cross. */
+        public val close: Icon
     }
 
     /** A style for a button. */

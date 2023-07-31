@@ -11,11 +11,7 @@ import net.minecraft.network.chat.Style
 import net.minecraft.util.FormattedCharSequence
 import kotlin.math.max
 
-/**
- * Like [net.minecraft.client.gui.components.StringWidget] but multi-line, and clickable.
- *
- * fixme - integrate this into [TextLinesWidget] somehow?
- */
+/** Like [net.minecraft.client.gui.components.StringWidget] but multi-line, and clickable. */
 public class ClickableMultiLineTextWidget(
     component: Component,
     font: Font,

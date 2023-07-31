@@ -2,7 +2,7 @@ package com.noxcrew.sheeplib.dialog.selection
 
 import com.noxcrew.sheeplib.LayoutConstants
 import com.noxcrew.sheeplib.dialog.Dialog
-import com.noxcrew.sheeplib.dialog.DialogTitleWidget
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.layout.LinearLayoutBuilder
 import com.noxcrew.sheeplib.layout.grid
 import com.noxcrew.sheeplib.theme.StaticColorReference

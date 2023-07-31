@@ -1,6 +1,6 @@
 package com.noxcrew.sheeplib.dialog.selection
 
-import com.noxcrew.sheeplib.dialog.DialogTitleWidget
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.dialog.selection.SelectionDialog.Entry
 import com.noxcrew.sheeplib.theme.Theme
 import net.minecraft.network.chat.Component
