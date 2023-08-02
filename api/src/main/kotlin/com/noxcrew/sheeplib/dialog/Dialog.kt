@@ -35,7 +35,7 @@ public abstract class Dialog(
      * A child dialog to show over the top of this one.
      */
     public var popup: Dialog? = null
-        set(value) {
+        private set(value) {
             field = value
             children().forEach { (it as? AbstractWidget)?.active = value == null }
         }

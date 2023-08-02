@@ -14,6 +14,7 @@ import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.GridLayout
 import net.minecraft.network.chat.Component
 
+/** A dialog showcasing available components. */
 public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Active {
 
     override val title: DialogTitleWidget = TextTitleWidget(this, Component.literal("Components"))
