@@ -27,6 +27,7 @@ public class SliderWidget(
     AbstractWidget(0, 0, width, HEIGHT, Component.empty()),
     Themed by themed {
     private companion object {
+        // fixme: don't hardcode this
         private const val HEIGHT = 14
     }
 
@@ -46,6 +47,7 @@ public class SliderWidget(
     public val currentValue: Int
         get() = min + currentIndex
 
+    // fixme: why 3 specifically?
     private val stepSize = (width - 3.0) / (max - min)
 
     private val offsets: List<Int> = DoubleArray(max - min + 1) { stepSize * it }.map(Double::roundToInt)

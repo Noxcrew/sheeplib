@@ -6,7 +6,9 @@
   "license": "LGPL-3.0-only",
   "contact": {
     "homepage": "https://noxcrew.com",
-    "discord": "https://discord.gg/mcc"
+    "discord": "https://discord.gg/mcc",
+    "issues": "https://github.com/noxcrew/sheeplib/issues",
+    "sources": "https://github.com/noxcrew/sheeplib"
   },
   "description": "An in-game HUD library for Fabric",
   "authors": [
@@ -22,7 +24,7 @@
   "environment": "client",
   "accessWidener": "sheeplib.accessWidener",
   "depends": {
-    "fabric-api": "*"
+    "fabric-language-kotlin": ">=1.9.4+kotlin.1.8.21"
 
   },
   "custom": {

@@ -6,7 +6,9 @@
   "license": "LGPL-3.0-only",
   "contact": {
     "homepage": "https://noxcrew.com",
-    "discord": "https://discord.gg/mcc"
+    "discord": "https://discord.gg/mcc",
+    "issues": "https://github.com/noxcrew/sheeplib/issues",
+    "sources": "https://github.com/noxcrew/sheeplib"
   },
   "description": "Test mod for SheepLib",
   "authors": [

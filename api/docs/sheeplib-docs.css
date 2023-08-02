@@ -1,0 +1,21 @@
+:root {
+    --noxcrew-red: #700000;
+}
+
+:root:not(.theme-dark) {
+    --active-tab-border-color: var(--noxcrew-red);
+    --active-section-color: var(--noxcrew-red);
+    --sidemenu-section-active-color: var(--noxcrew-red);
+}
+
+:root:not(.theme-dark) .navigation-wrapper {
+    background: var(--noxcrew-red);
+}
+
+.search button {
+    background: none;
+}
+
+.platform-tag {
+    display: none;
+}

@@ -6,6 +6,12 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.network.chat.Component
 
+/**
+ * A text widget that renders a single line of text, correctly handling hover and click.
+ *
+ * @param component the text component to render
+ * @param font the font to render the text with
+ */
 public class ClickableTextWidget(component: Component, font: Font) : StringWidget(component, font) {
 
     init {
