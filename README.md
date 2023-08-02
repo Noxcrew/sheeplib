@@ -38,7 +38,13 @@ dependencies {
 [The wiki](https://github.com/Noxcrew/sheeplib/wiki) contains some more in-depth documentation, but basic use is:
 
 - Subclass `Dialog`
-  - Add widgets through a layout (see `Themed.grid` extension function)
-  - Add a theme (delegate `Themed` to `Theme.Active` if you don't have a theme already)
+    - Add widgets through a layout (see `Themed.grid` extension function)
+    - Add a theme (delegate `Themed` to `Theme.Active` if you don't have a theme already)
 - Instantiate your dialog and add it to the dialog container `DialogContainer += MyDialog()`
 - Close dialogs by calling `Dialog.close()`
+
+# Test mod
+
+The `test-mod` module is exactly what it says on the tin - it's a test mod. Its main function is to test the library,
+but it's a nice environment to explore how the library works. The test dialogs are nice examples for the library's
+functionality.
