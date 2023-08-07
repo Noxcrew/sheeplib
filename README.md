@@ -25,9 +25,12 @@ Once you've done that, add the library to the `modImplementation` dependency con
 Add it to `include` too to JiJ it.
 
 ```kotlin
-// TODO: we haven't published the library to a maven repo anywhere yet
-// for now just go through maven local
-
+repositories {
+    maven {
+        name = "noxcrew-public"
+        url = uri("https://maven.noxcrew.com/public")
+    }
+}
 dependencies {
     include(modImplementation("com.noxcrew.sheeplib:api:<version>")!!)
 }

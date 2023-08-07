@@ -9,7 +9,10 @@ plugins {
 // https://github.com/gradle/gradle/issues/15383#issuecomment-779893192
 internal val Project.libs get() = project.extensions.getByName("libs") as LibrariesForLibs
 
-kotlin.explicitApi()
+kotlin {
+    explicitApi()
+    jvmToolchain(17)
+}
 
 tasks {
     named<KotlinCompilationTask<*>>("compileKotlin") {

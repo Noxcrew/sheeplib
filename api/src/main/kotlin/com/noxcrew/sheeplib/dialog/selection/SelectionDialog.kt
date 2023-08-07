@@ -122,9 +122,9 @@ public class SelectionDialog<out T>(
             newRow()
             buttons.forEachIndexed { index, (text, action) ->
                 ThemedButton(
-                    buttonWidth,
-                    theme.dimensions.buttonHeight,
                     text,
+                    width = buttonWidth,
+                    height = theme.dimensions.buttonHeight,
                     centreText = true,
                     scrollText = false,
                 ) {
@@ -145,8 +145,12 @@ public class SelectionDialog<out T>(
             .apply {
                 entries.forEach { (text, action) ->
                     +ThemedButton(
-                        entryWidth, lineHeight, text,
-                        style = buttonStyle, theme = withOuterPadding(theme, 0)
+                        text,
+                        withOuterPadding(theme, 0),
+                        width = entryWidth,
+                        height = lineHeight,
+                        style = buttonStyle,
+
                     ) {
                         action(context)
                     }

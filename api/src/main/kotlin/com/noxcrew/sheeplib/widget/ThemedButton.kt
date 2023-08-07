@@ -9,44 +9,30 @@ import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 
 /**
- * A clickable button.
+ * A themed button.
  *
  * @param message The text to show on the button
+ * @param width The button's width. Defaults to [Theme.Dimensions.buttonWidth]
+ * @param height The button's height. Defaults to [Theme.Dimensions.buttonHeight]
+ * @param isEnabled Whether the button is enabled
  * @param clickHandler A callback for when the button is clicked
+ * @param style The button's style
+ * @param centreText When true, text is aligned centrally, otherwise it's left-aligned.
+ * @param scrollText If the text is larger than the button, scrolls it across the button.
+ * This is ignored if [centreText] is true, where text will always be scrolled.
  */
 public open class ThemedButton(
-    width: Int,
-    height: Int,
     message: Component,
-    public var isEnabled: Boolean = true,
     theme: Themed = Theme.Active,
+    width: Int = theme.theme.dimensions.buttonWidth,
+    height: Int = theme.theme.dimensions.buttonHeight,
+    public var isEnabled: Boolean = true,
     protected open val style: Theme.ButtonStyle = theme.theme.buttonStyles.standard,
     protected val centreText: Boolean = false,
     protected val scrollText: Boolean = true,
     private val clickHandler: () -> Unit,
 ) :
     AbstractWidget(0, 0, width, height, message), Themed by theme {
-
-    // fixme: why the overload?
-    public constructor(
-        message: Component,
-        isEnabled: Boolean = true,
-        theme: Themed = Theme.Active,
-        style: Theme.ButtonStyle = theme.theme.buttonStyles.standard,
-        centreText: Boolean = false,
-        scrollText: Boolean = false,
-        clickHandler: () -> Unit
-    ) : this(
-        theme.theme.dimensions.buttonWidth,
-        theme.theme.dimensions.buttonHeight,
-        message,
-        isEnabled,
-        theme,
-        style,
-        centreText,
-        scrollText,
-        clickHandler
-    )
 
     private var messageWidth: Int = Minecraft.getInstance().font.width(message)
 

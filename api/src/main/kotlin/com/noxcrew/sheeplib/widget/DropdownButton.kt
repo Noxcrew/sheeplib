@@ -11,21 +11,33 @@ import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.network.chat.Component
 
+/**
+ * A dropdown button widget that displays a list of options in a popup dialog.
+ *
+ * @param T the type of the options
+ * @param parent the parent dialog that the dropdown button belongs to
+ * @param options the list of options to be displayed
+ * @param width the width of the button, and by extension the dropdown selection
+ * @param height the height of the button
+ * @param isEnabled whether the button is enabled
+ * @param default the default selected option
+ * @param displayMapper a function that maps an option to a text component for display
+ */
 public class DropdownButton<T : Any>(
-    width: Int,
-    height: Int,
     private val parent: Dialog,
     private val options: List<T>,
+    width: Int = parent.theme.dimensions.buttonWidth,
+    height: Int = parent.theme.dimensions.buttonHeight,
     isEnabled: Boolean = true,
     default: T = options.getOrElse(0) { throw IllegalArgumentException("Options list must not be empty") },
     private val displayMapper: (T) -> Component,
 ) :
     ThemedButton(
+        displayMapper(default),
+        parent,
         width,
         height,
-        displayMapper(default),
         isEnabled,
-        parent,
         parent.theme.buttonStyles.standard,
         false,
         true,
@@ -83,7 +95,13 @@ public class DropdownButton<T : Any>(
                 LinearLayout.Orientation.VERTICAL
             ) {
                 options.forEach {
-                    ThemedButton(this@DropdownButton.width, buttonHeight, displayMapper(it)) { select(it) }.add(LayoutConstants.CENTRE)
+                    ThemedButton(
+                        displayMapper(it),
+                        width = this@DropdownButton.width,
+                        height = buttonHeight,
+                    ) {
+                        select(it)
+                    }.add(LayoutConstants.CENTRE)
                 }
             }
         }

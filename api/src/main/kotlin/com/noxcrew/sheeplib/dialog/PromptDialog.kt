@@ -34,9 +34,8 @@ public class PromptDialog(
     override fun layout(): GridLayout = grid {
         MultiLineTextWidget(text, Minecraft.getInstance().font).atBottom( 0)
         ThemedButton(
-            theme.dimensions.buttonWidth,
-            theme.dimensions.buttonHeight,
-            Component.translatable("sheeplib.dialog.ok")
+            Component.translatable("sheeplib.dialog.ok"),
+            theme = this@PromptDialog
         ) {
             close()
         }.atBottom(0)
