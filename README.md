@@ -2,6 +2,8 @@ SheepLib
 ---
 A Fabric library for interactable HUD components, written in Kotlin
 
+![](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmaven.noxcrew.com%2Fpublic%2Fcom%2Fnoxcrew%2Fsheeplib%2Fapi%2Fmaven-metadata.xml)
+
 # What is SheepLib?
 
 SheepLib is a library for adding stuff to Minecraft's in-game HUD, in the form of dialogs.
