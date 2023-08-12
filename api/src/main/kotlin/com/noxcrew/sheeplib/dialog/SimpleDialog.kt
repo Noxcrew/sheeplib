@@ -13,9 +13,8 @@ import org.jetbrains.annotations.ApiStatus
 @ApiStatus.Experimental
 public class SimpleDialog(
     x: Int, y: Int,
-    titleProducer: (Dialog) -> DialogTitleWidget?,
-    private val dialogLayout: Layout,
     override val theme: Theme = DefaultTheme,
+    builderFn: Builder.() -> Unit
 ) :
     Dialog(x, y),
     Themed {
@@ -25,9 +24,33 @@ public class SimpleDialog(
     // but it stops intellij complaining about something else
     @Suppress("RedundantModalityModifier")
     final override val title: DialogTitleWidget?
-    override fun layout(): Layout = dialogLayout
+    private var builtLayout: Layout
+    override fun layout(): Layout = builtLayout
 
     init {
-        title = titleProducer(this)
+        val builder = Builder(this, null)
+        builder.builderFn()
+        builder.check()
+        title = builder.title
+        builtLayout = builder.layout
+    }
+
+    /**
+     * Builds a [SimpleDialog].
+     * @param dialog The dialog that's being built.
+     * @param title The dialog's title.
+     */
+    public data class Builder(public val dialog: SimpleDialog, public var title: DialogTitleWidget?) {
+        /**
+         * The dialog's layout.
+         */
+        public lateinit var layout: Layout
+
+        /**
+         * Checks that the builder has been fully completed before building.
+         */
+        public fun check() {
+            check(::layout.isInitialized) { "No layout has been set for SimpleDialog" }
+        }
     }
 }
