@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-include("api", "test-mod")
+include("api", "coroutines", "test-mod")

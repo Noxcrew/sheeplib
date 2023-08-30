@@ -6,7 +6,6 @@ import java.net.URL
 
 plugins {
     id("sheeplib.fabric")
-    id("sheeplib.publish")
     id("org.jetbrains.dokka") version "1.8.20"
     `maven-publish`
 }
@@ -17,9 +16,14 @@ buildscript {
     }
 }
 
+dependencies {
+    api(libs.kotlin.coroutines)
+}
+
 tasks {
     java {
         archivesName = "sheeplib"
+        withSourcesJar()
     }
     withType<DokkaTask>().configureEach {
         pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
@@ -40,6 +44,23 @@ tasks {
     }
 }
 
-dependencies {
-    compileOnly("org.jetbrains:annotations:24.0.1")
+publishing {
+    repositories {
+        maven {
+            name = "noxcrew-public"
+            url = uri("https://maven.noxcrew.com/public")
+            credentials {
+                username = System.getenv("NOXCREW_MAVEN_PUBLIC_USERNAME")
+                password = System.getenv("NOXCREW_MAVEN_PUBLIC_PASSWORD")
+            }
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
