@@ -1,5 +1,11 @@
 {
   "sheeplib.dialog.ok": "OK",
   "sheeplib.toggle.on": "On",
-  "sheeplib.toggle.off": "Off"
+  "sheeplib.toggle.off": "Off",
+
+  "sheeplib.progress.waiting": "Waiting",
+  "sheeplib.progress.inProgress": "In progress",
+  "sheeplib.progress.inProgress.count": "In progress (%s/%s)",
+  "sheeplib.progress.complete": "Complete",
+  "sheeplib.progress.failed": "Failed"
 }
