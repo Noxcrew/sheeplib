@@ -12,6 +12,8 @@ import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.util.Mth
+import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
+import java.io.Closeable
 
 /**
  * A base class for an interactable element present on the HUD.
@@ -19,17 +21,22 @@ import net.minecraft.util.Mth
 public abstract class Dialog(
     x: Int,
     y: Int
-) : CompoundWidget(x, y, 0, 0), Themed {
+) : CompoundWidget(x, y, 0, 0), Themed, Closeable {
 
+    /** The dialog's parent. */
     public var parent: Dialog? = null
         private set
 
-    private var hasBeenInitialized = false
     private var dragStartX = -1
     private var dragStartY = -1
 
-    public var isClosing: Boolean = false
-        protected set
+    /** The dialog's state. */
+    public var state: State = State.READY
+        private set
+
+    @get:Deprecated("Check state directly", ReplaceWith("state.isClosing"))
+    @get:ScheduledForRemoval(inVersion = "1.0.0")
+    public val isClosing: Boolean get() = state.isClosing
 
     /**
      * A child dialog to show over the top of this one.
@@ -68,11 +75,19 @@ public abstract class Dialog(
     /**
      * Closes this dialog.
      */
-    public open fun close() {
-        isClosing = true
+    public final override fun close() {
+        if (state.isClosing) return
+        state = State.CLOSING
         parent?.also {
             if (it.popup == this) it.popup = null
         } ?: run { DialogContainer -= this }
+        onClose()
+        state = State.CLOSED
+    }
+
+    /** This method is called before the dialog is closed. By default, it does nothing. */
+    protected open fun onClose() {
+
     }
 
     final override fun setX(i: Int) {
@@ -122,12 +137,12 @@ public abstract class Dialog(
             (it as? DialogTitleWidget)?.onDialogResize()
         }
 
-        hasBeenInitialized = true
+        state = State.ACTIVE
     }
 
     /** Initialises the dialog if it hasn't been already. */
     public fun initIfNeeded() {
-        if (!hasBeenInitialized) init()
+        if (state == State.READY) init()
     }
 
     override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
@@ -187,10 +202,20 @@ public abstract class Dialog(
     }
 
     protected companion object {
-        public const val DEFAULT_OUTER_PADDING: Int = 5
-
         public const val BOTTOM_EDGE_DEAD_ZONE: Int = 20
         private const val POPUP_FOCUSED_OPACITY = 0.7f
     }
 
+    /** A dialog's state. */
+    public enum class State(public val isClosing: Boolean) {
+        /** The dialog has been created but not yet initialised. */
+        READY(false),
+        /** The dialog has been initialised and is ready to be used. */
+        ACTIVE(false),
+        /** The dialog is being closed. */
+        CLOSING(true),
+        /** The dialog has been closed. */
+        CLOSED(true),
+        ;
+    }
 }

@@ -64,7 +64,7 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
 
     /** Moves a dialog above all other dialogs. */
     public fun moveToTop(dialog: Dialog) {
-        if (dialog.isClosing) return
+        if (dialog.state.isClosing) return
         // fixme: potential thread safety issue
         children = (children - dialog + dialog)
     }
@@ -93,7 +93,7 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
             it.mouseClicked(d, e, i)
         } ?: return false
 
-        if (focused != child && child is Dialog && !child.isClosing) {
+        if (focused != child && child is Dialog && !child.state.isClosing) {
             setFocused(child)
             moveToTop(child)
         }
