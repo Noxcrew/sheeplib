@@ -20,7 +20,7 @@ fabric-loom = { group = "net.fabricmc", name = "fabric-loom", version.ref = "fab
 
 kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jvm = { group = "org.jetbrains.kotlin", name = "jvm", version.ref = "kotlin" }
-kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "coroutines-core-jvm", version.ref = "coroutines" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
 
 guava = { group = "com.google.guava", name = "guava" } # version from minecraftLibraries
 

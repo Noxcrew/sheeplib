@@ -1,6 +1,9 @@
 package com.noxcrew.sheeplib.widget.progress
 
+import org.jetbrains.annotations.ApiStatus
+
 /** The state of an ongoing operation. */
+@ApiStatus.Experimental
 public sealed interface Progress {
 
     /** The operation has not yet started. */
