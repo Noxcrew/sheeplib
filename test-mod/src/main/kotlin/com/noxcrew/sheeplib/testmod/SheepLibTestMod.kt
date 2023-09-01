@@ -30,7 +30,8 @@ public object SheepLibTestMod : ClientModInitializer {
         "components" to ::ComponentsDialog,
         "popup" to ::PopupDialog,
         "example" to ::MyFirstDialog,
-        "text" to ::textInputDialog
+        "text" to ::textInputDialog,
+        "progress" to ::ProgressDialog
     )
 
 
