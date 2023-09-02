@@ -80,6 +80,7 @@ public abstract class Dialog(
         state = State.CLOSING
         parent?.also {
             if (it.popup == this) it.popup = null
+            if (it.focused == this) it.focused = null
         } ?: run { DialogContainer -= this }
         onClose()
         state = State.CLOSED

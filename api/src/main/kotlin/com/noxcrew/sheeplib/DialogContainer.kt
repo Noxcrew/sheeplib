@@ -60,6 +60,7 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     /** Removes a dialog from the container. */
     public operator fun <T> minusAssign(dialog: T) where T: GuiEventListener, T: Renderable {
         children -= dialog
+        if (focused == dialog) focused = null
     }
 
     /** Moves a dialog above all other dialogs. */
