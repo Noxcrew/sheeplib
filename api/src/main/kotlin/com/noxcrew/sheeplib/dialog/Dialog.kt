@@ -53,13 +53,14 @@ public abstract class Dialog(
      * @see [popup]
      */
     public fun popup(dialog: Dialog, replace: Boolean = false) {
+        dialog.initIfNeeded()
         parent.let { p ->
             if (replace && p == null) {
                 DialogContainer += dialog
                 close()
                 return
             }
-            (if (p != null && replace) p else this).let {
+            (p?.takeIf { replace } ?: this).let {
                 dialog.parent = it
                 it.popup = dialog
                 it.focused = dialog
