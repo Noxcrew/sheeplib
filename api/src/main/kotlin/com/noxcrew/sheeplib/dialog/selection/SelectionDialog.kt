@@ -38,6 +38,7 @@ import kotlin.math.max
  *
  * @param T a context object. This object is passed to entries when called.
  */
+@Deprecated("Use button collections (GridLayout.iconButtonRow and ButtonStack) directly")
 public class SelectionDialog<out T>(
     x: Int, y: Int,
     private val entries: List<Entry<T>>,
