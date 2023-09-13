@@ -68,7 +68,7 @@ public class ButtonStack(
  * @param theme the buttons' theme
  * @param builder a builder for buttons
  */
-public fun ButtonStack(
+public inline fun ButtonStack(
     theme: Themed,
     width: Int,
     lineHeight: Int,

@@ -21,7 +21,8 @@ public class GridLayoutBuilder(
     private val layout = GridLayout(x, y).spacing(spacing)
     public override fun build(): GridLayout = layout
 
-    internal var lastRow = -1
+    @PublishedApi
+    internal var lastRow: Int = -1
 
     /**
      * Adds an element at a specific row and column.

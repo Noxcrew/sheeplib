@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component
 @LayoutBuilderDsl
 public class TextButtonCollectionBuilder<T : Function<*>> {
 
+    @PublishedApi
     internal val elements: MutableList<Pair<Component, T>> = mutableListOf()
 
     /**

@@ -11,7 +11,7 @@ import com.noxcrew.sheeplib.widget.ThemedButton
  * Buttons should contain a single character, possibly a Unicode symbol/emoji.
  * They may have hover text, which will be shown when the button is hovered over, as per [ThemedButton].
  */
-public fun GridLayoutBuilder.iconButtonRow(
+public inline fun GridLayoutBuilder.iconButtonRow(
     theme: Themed,
     row: Int = lastRow + 1,
     firstColumn: Int = 0,
