@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.network.chat.Component
+import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 import kotlin.math.max
 
 /**
@@ -38,6 +39,8 @@ import kotlin.math.max
  *
  * @param T a context object. This object is passed to entries when called.
  */
+@Deprecated("Use button collections (GridLayout.iconButtonRow and ButtonStack) directly")
+@ScheduledForRemoval(inVersion = "1.0.0")
 public class SelectionDialog<out T>(
     x: Int, y: Int,
     private val entries: List<Entry<T>>,

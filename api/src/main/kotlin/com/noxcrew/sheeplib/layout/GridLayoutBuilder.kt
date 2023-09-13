@@ -21,7 +21,8 @@ public class GridLayoutBuilder(
     private val layout = GridLayout(x, y).spacing(spacing)
     public override fun build(): GridLayout = layout
 
-    private var lastRow = -1
+    @PublishedApi
+    internal var lastRow: Int = -1
 
     /**
      * Adds an element at a specific row and column.
@@ -42,6 +43,12 @@ public class GridLayoutBuilder(
         lastRow = max(row, lastRow)
         return this
     }
+
+    /**
+     * Adds an element at a specific row and column
+     * @see at
+     */
+    public operator fun <T: LayoutElement> set(row: Int, col: Int, value: T): T = value.at(row, col)
 
     /**
      * Adds an element on a new row at the bottom of the grid.
