@@ -1,13 +1,16 @@
 package com.noxcrew.sheeplib.dialog.selection
 
-import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.dialog.selection.SelectionDialog.Entry
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
 import net.minecraft.network.chat.Component
+import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 
 /**
  * Builds a [SelectionDialog].
  */
+@Deprecated("See SelectionDialog")
+@ScheduledForRemoval(inVersion = "1.0.0")
 public class SelectionDialogBuilder<T> {
 
     private val entries: MutableList<Entry<T>> = mutableListOf()
@@ -43,6 +46,8 @@ public class SelectionDialogBuilder<T> {
  * Creates a [SelectionDialog] from a builder.
  * @see SelectionDialog
  */
+@Deprecated("See SelectionDialog")
+@ScheduledForRemoval(inVersion = "1.0.0")
 public inline fun <T> selectionDialog(
     x: Int,
     y: Int,
