@@ -38,8 +38,13 @@ tasks {
             }
         }
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
     compileOnly("org.jetbrains:annotations:24.0.1")
+    testImplementation(kotlin("test"))
 }
