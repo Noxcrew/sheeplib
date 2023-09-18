@@ -1,7 +1,6 @@
 package com.noxcrew.sheeplib.dialog
 
 import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
-import com.noxcrew.sheeplib.dialog.title.TextTitleWidget
 import com.noxcrew.sheeplib.layout.grid
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
@@ -19,17 +18,17 @@ import net.minecraft.network.chat.Component
 public class PromptDialog(
     x: Int, y: Int,
     theme: Themed = Theme.Active,
-    private val titleText: Component,
+    private val titleText: String,
     private val text: Component
 ) : Dialog(x, y), Themed by theme {
 
     public constructor(x: Int, y: Int, theme: Themed = Theme.Active, message: String) : this(
         x, y, theme,
-        Component.literal(message),
+        message,
         Component.literal(message)
     )
 
-    override val title: DialogTitleWidget = TextTitleWidget(this, titleText, true)
+    override val title: DialogTitleWidget? = theme.theme.createTitleWidget(this, titleText, true)
 
     override fun layout(): GridLayout = grid {
         MultiLineTextWidget(text, Minecraft.getInstance().font).atBottom( 0)

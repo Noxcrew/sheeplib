@@ -1,4 +1,4 @@
-package com.noxcrew.sheeplib.testmod;
+package com.noxcrew.sheeplib.testmod
 
 import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.dialog.PromptDialog
@@ -19,7 +19,7 @@ public class PopupDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Active 
         // opening at the mouse cursor can work nicely too
         x + 10, y + 10,
         theme = this,
-        Component.literal("Popup"),
+        "Popup",
         Component.literal("This is a child dialog"),
     )
 

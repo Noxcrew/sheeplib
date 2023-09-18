@@ -22,7 +22,7 @@ public object SheepLibTestMod : ClientModInitializer {
             PromptDialog(
                 x, y,
                 Theme.Active,
-                literal("Title"),
+                "Title",
                 literal("Prompt dialog body"),
             )
         },
@@ -31,6 +31,7 @@ public object SheepLibTestMod : ClientModInitializer {
         "popup" to ::PopupDialog,
         "example" to ::MyFirstDialog,
         "text" to ::textInputDialog,
+        "bar" to ::ProgressBarDialog,
         "progress" to ::ProgressDialog,
         "buttons" to ::ButtonCollectionsDialog
     )
