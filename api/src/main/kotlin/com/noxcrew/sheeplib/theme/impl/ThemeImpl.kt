@@ -1,5 +1,7 @@
 package com.noxcrew.sheeplib.theme.impl
 
+import com.noxcrew.sheeplib.dialog.Dialog
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.util.Icon
 
@@ -29,6 +31,9 @@ public data class ThemeImpl(
     override val buttonStyles: Theme.ButtonStyles,
     override val icons: Theme.Icons,
     override val dialogBorders: Boolean,
-): Theme {
+    private val widgetTitleFactory: (Dialog, String, Boolean) -> DialogTitleWidget?
+) : Theme {
     override val theme: ThemeImpl = this
+    override fun createTitleWidget(dialog: Dialog, text: String, isCloseable: Boolean): DialogTitleWidget? =
+        widgetTitleFactory(dialog, text, isCloseable)
 }

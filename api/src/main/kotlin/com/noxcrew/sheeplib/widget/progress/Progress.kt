@@ -7,7 +7,7 @@ import org.jetbrains.annotations.ApiStatus
 public sealed interface Progress {
 
     /** The operation has not yet started. */
-    public object Waiting : Progress
+    public data object Waiting : Progress
 
     /** The operation is in progress. */
     public sealed interface InProgress : Progress {
@@ -22,7 +22,7 @@ public sealed interface Progress {
     }
 
     /** The operation has completed successfully. */
-    public object Complete : Progress
+    public data object Complete : Progress
 
     /** The operation has failed due to an exception. */
     public data class Failed(public val reason: Throwable) : Progress

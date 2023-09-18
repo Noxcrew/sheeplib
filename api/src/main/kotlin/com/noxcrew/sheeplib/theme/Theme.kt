@@ -1,5 +1,7 @@
 package com.noxcrew.sheeplib.theme
 
+import com.noxcrew.sheeplib.dialog.Dialog
+import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.util.Icon
 
 /**
@@ -134,6 +136,15 @@ public interface Theme : Themed {
 
     /** The theme's icons. */
     public val icons: Icons
+
+    /**
+     * Creates a title widget for a dialog.
+     *
+     * @param dialog the dialog to create a widget for
+     * @param text the string text to display (not a component to allow implementations to do their own formatting)
+     * @param isCloseable if true, the widget should have a button to [close the dialog][Dialog.close]
+     */
+    public fun createTitleWidget(dialog: Dialog, text: String, isCloseable: Boolean): DialogTitleWidget? = null
 
     public companion object {
 

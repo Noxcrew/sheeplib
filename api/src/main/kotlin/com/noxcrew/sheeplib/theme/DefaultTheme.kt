@@ -1,11 +1,13 @@
 package com.noxcrew.sheeplib.theme
 
+import com.noxcrew.sheeplib.dialog.title.TextTitleWidget
 import com.noxcrew.sheeplib.theme.impl.ColorsImpl
 import com.noxcrew.sheeplib.theme.impl.IconsImpl
 import com.noxcrew.sheeplib.theme.impl.ThemeImpl
 import com.noxcrew.sheeplib.util.Icon
 import com.noxcrew.sheeplib.util.lighten
 import com.noxcrew.sheeplib.util.opaqueColor
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 
 private val colors = ColorsImpl(
@@ -64,4 +66,5 @@ public val DefaultTheme: ThemeImpl = ThemeImpl(
         )
     ),
     true,
+    widgetTitleFactory = {dialog, text, closeable -> TextTitleWidget(dialog, Component.literal(text), closeable) },
 )
