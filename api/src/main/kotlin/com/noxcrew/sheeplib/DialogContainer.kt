@@ -1,6 +1,8 @@
 package com.noxcrew.sheeplib
 
 import com.noxcrew.sheeplib.dialog.Dialog
+import kotlinx.atomicfu.atomic
+import kotlinx.atomicfu.update
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Renderable
@@ -18,7 +20,8 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     private val minecraft = Minecraft.getInstance()
 
     /** The container's children. */
-    private var children: List<GuiEventListener> = listOf()
+    private val children = atomic(listOf<GuiEventListener>())
+
 
     /** The container's focused child, if any. */
     private var focused: Dialog? = null
@@ -37,8 +40,8 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
         val childY = if (cursorIsActive) j else -1
 
         guiGraphics.pose().pushPose()
-        guiGraphics.pose().translate(0f, 0f, -children.size * Z_OFFSET)
-        children.forEach {
+        guiGraphics.pose().translate(0f, 0f, -children.value.size * Z_OFFSET)
+        children.value.forEach {
             guiGraphics.pose().translate(0f, 0f, Z_OFFSET)
             (it as Renderable).render(guiGraphics, childX, childY, f)
         }
@@ -46,11 +49,13 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     }
 
     /** Returns an immutable view of this container's dialog. */
-    override fun children(): List<GuiEventListener> = children
+    override fun children(): List<GuiEventListener> = children.value
 
     /** Adds a dialog to the container and focuses it. */
-    public operator fun <T> plusAssign(dialog: T) where T: GuiEventListener, T: Renderable {
-        children += dialog
+    public operator fun <T> plusAssign(dialog: T) where T : GuiEventListener, T : Renderable {
+        children.update {
+            it + dialog
+        }
         if (dialog is Dialog) {
             dialog.initIfNeeded()
             focused = dialog
@@ -58,16 +63,17 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     }
 
     /** Removes a dialog from the container. */
-    public operator fun <T> minusAssign(dialog: T) where T: GuiEventListener, T: Renderable {
-        children -= dialog
+    public operator fun <T> minusAssign(dialog: T) where T : GuiEventListener, T : Renderable {
+        children.update { it - dialog }
         if (focused == dialog) focused = null
     }
 
     /** Moves a dialog above all other dialogs. */
     public fun moveToTop(dialog: Dialog) {
         if (dialog.state.isClosing) return
-        // fixme: potential thread safety issue
-        children = (children - dialog + dialog)
+        children.update {
+            it - dialog + dialog
+        }
     }
 
     /** Returns the focused dialog. */
@@ -79,7 +85,7 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
      */
     override fun setFocused(dialog: GuiEventListener?) {
         if (dialog !is Dialog) return
-        require(dialog in children) {
+        require(dialog in children.value) {
             "New focused element is not in the container"
         }
         focused = dialog
@@ -105,8 +111,8 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
         return true
     }
 
-    override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean
-    = children.lastOrNull { it.mouseDragged(d,e, i, f, g) } != null
+    override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean =
+        children.value.lastOrNull { it.mouseDragged(d, e, i, f, g) } != null
 
     override fun isDragging(): Boolean = isDragging
 

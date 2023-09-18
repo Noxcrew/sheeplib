@@ -14,8 +14,11 @@ plugins {
 buildscript {
     dependencies {
         classpath("org.jetbrains.dokka:dokka-base:1.8.20")
+        classpath("org.jetbrains.kotlinx:atomicfu-gradle-plugin:0.22.0")
     }
 }
+
+apply(plugin = "kotlinx-atomicfu")
 
 tasks {
     java {
