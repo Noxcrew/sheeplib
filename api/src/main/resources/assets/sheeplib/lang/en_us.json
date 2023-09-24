@@ -7,5 +7,7 @@
   "sheeplib.progress.inProgress": "In progress",
   "sheeplib.progress.inProgress.count": "In progress (%s/%s)",
   "sheeplib.progress.complete": "Complete",
-  "sheeplib.progress.failed": "Failed"
+  "sheeplib.progress.failed": "Failed",
+
+  "sheeplib.error": "[SheepLib] An error occurred while opening a dialog.\nCheck your game log for more information."
 }

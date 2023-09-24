@@ -33,6 +33,7 @@ public class SimpleDialog(
         builder.check()
         title = builder.title
         builtLayout = builder.layout
+
     }
 
     /**

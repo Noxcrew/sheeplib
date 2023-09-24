@@ -32,7 +32,8 @@ public object SheepLibTestMod : ClientModInitializer {
         "example" to ::MyFirstDialog,
         "text" to ::textInputDialog,
         "progress" to ::ProgressDialog,
-        "buttons" to ::ButtonCollectionsDialog
+        "buttons" to ::ButtonCollectionsDialog,
+        "exception" to ::ExceptionDialog
     )
 
 

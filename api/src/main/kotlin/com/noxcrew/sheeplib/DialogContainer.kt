@@ -3,6 +3,7 @@ package com.noxcrew.sheeplib
 import com.noxcrew.sheeplib.dialog.Dialog
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
+import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Renderable
@@ -11,6 +12,9 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.gui.screens.ChatScreen
+import net.minecraft.network.chat.Component
+import org.slf4j.LoggerFactory
+import kotlin.reflect.jvm.jvmName
 
 /**
  * The container for all open dialogs.
@@ -18,10 +22,10 @@ import net.minecraft.client.gui.screens.ChatScreen
 public object DialogContainer : Renderable, ContainerEventHandler, NarratableEntry {
 
     private val minecraft = Minecraft.getInstance()
+    private val logger = LoggerFactory.getLogger("SheepLib")
 
     /** The container's children. */
     private val children = atomic(listOf<GuiEventListener>())
-
 
     /** The container's focused child, if any. */
     private var focused: Dialog? = null
@@ -53,12 +57,20 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
 
     /** Adds a dialog to the container and focuses it. */
     public operator fun <T> plusAssign(dialog: T) where T : GuiEventListener, T : Renderable {
+        if (dialog is Dialog) {
+            try {
+                dialog.initIfNeeded()
+                focused = dialog
+            } catch (ex: Throwable) {
+                Minecraft.getInstance().gui.chat.addMessage(
+                    Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
+                )
+                logger.error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
+                return
+            }
+        }
         children.update {
             it + dialog
-        }
-        if (dialog is Dialog) {
-            dialog.initIfNeeded()
-            focused = dialog
         }
     }
 
