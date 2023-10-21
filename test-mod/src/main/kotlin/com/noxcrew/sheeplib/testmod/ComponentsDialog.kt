@@ -7,6 +7,7 @@ import com.noxcrew.sheeplib.layout.grid
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.DropdownButton
+import com.noxcrew.sheeplib.widget.SliderWidget
 import com.noxcrew.sheeplib.widget.ThemedButton
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.StringWidget
@@ -38,5 +39,7 @@ public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Ac
         ).at(4, 0)
 
         StringWidget(Component.literal("Buttons"), font).at(0, 0)
+
+        SliderWidget(100, 0, 8, this@ComponentsDialog).atBottom(0)
     }
 }
