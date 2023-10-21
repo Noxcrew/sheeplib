@@ -99,20 +99,36 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
     }
 
     /**
-     * Fall back on the input element if the focused child does not handle charTyped.
-     * This is necesary as {@link ChatScreen} assumes that the input element is the only child.
+     * Attempt to pass char type events to {@link DialogContainer} first.
+     * This is necessary as {@link ChatScreen} assumes that the input element is the only child.
      */
     @Override
     public boolean charTyped(char c, int i) {
-        return super.charTyped(c, i) || input.charTyped(c, i);
+        return DialogContainer.INSTANCE.charTyped(c, i) || input.charTyped(c, i);
     }
 
+    /**
+     * Pass key press events to {@link DialogContainer} first.
+     */
     @Inject(
             method = "keyPressed",
-            at = @At("RETURN"),
+            at = @At("HEAD"),
             cancellable = true
     )
     public void keyPressed(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(cir.getReturnValueZ() || input.keyPressed(i, j, k));
+        if (DialogContainer.INSTANCE.keyPressed(i, j, k)) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    /**
+     * Clear the dialog container's focus when the screen is closed.
+     */
+    @Inject(
+            method = "removed",
+            at = @At("TAIL")
+    )
+    public void removed(CallbackInfo ci) {
+        DialogContainer.INSTANCE.setFocused(null);
     }
 }

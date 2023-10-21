@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.noxcrew.sheeplib.theme
 
 import com.noxcrew.sheeplib.dialog.title.TextTitleWidget
@@ -26,7 +28,6 @@ private val colors = ColorsImpl(
 )
 
 /** The default theme. */
-@Suppress("MagicNumber")
 public val DefaultTheme: ThemeImpl = ThemeImpl(
     Theme.Dimensions(
         buttonWidth = 70,

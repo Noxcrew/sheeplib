@@ -96,11 +96,18 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
      * @throws IllegalArgumentException if [dialog] is both not null and not in this container
      */
     override fun setFocused(dialog: GuiEventListener?) {
+
+        if (dialog == null) {
+            focused?.focused = null
+        }
+
         if (dialog !is Dialog) return
         require(dialog in children.value) {
             "New focused element is not in the container"
         }
         focused = dialog
+        logger.info("Focused $dialog")
+        minecraft.screen?.focused = this
     }
 
     /**
