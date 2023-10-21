@@ -7,6 +7,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.math.sign
 
 /**
  * A slider with discrete steps between two integers.
@@ -19,8 +20,8 @@ import kotlin.math.roundToInt
  */
 public class SliderWidget(
     width: Int,
-    private val min: Int,
-    max: Int,
+    public val min: Int,
+    public val max: Int,
     themed: Themed,
     private val updateCallback: ((Int) -> Unit)? = null,
 ) :
@@ -63,6 +64,12 @@ public class SliderWidget(
 
         val lineX = x + offsets[currentIndex]
         guiGraphics.fill(lineX, y, lineX + 3, y + height, theme.colors.textPrimary)
+    }
+
+
+    override fun mouseScrolled(d: Double, e: Double, f: Double): Boolean {
+        currentIndex = (currentIndex + sign(f).toInt()).coerceIn(min..max)
+        return true
     }
 
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput): Unit = Unit
