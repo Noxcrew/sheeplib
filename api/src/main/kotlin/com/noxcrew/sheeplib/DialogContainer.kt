@@ -44,7 +44,7 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
         val childY = if (cursorIsActive) j else -1
 
         guiGraphics.pose().pushPose()
-        guiGraphics.pose().translate(0f, 0f, -children.value.size * Z_OFFSET)
+        guiGraphics.pose().translate(0f, 0f, 100f) // 2 x 50 to get over the top of the chat.
         children.value.forEach {
             guiGraphics.pose().translate(0f, 0f, Z_OFFSET)
             (it as Renderable).render(guiGraphics, childX, childY, f)
