@@ -34,7 +34,13 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
     private var isDragging: Boolean = false
 
     /** The step to offset each dialog by in the Z-axis. */
-    private const val Z_OFFSET: Float = 5f
+    private const val Z_STEP_PER_DIALOG = 5f
+
+    /**
+     * The amount to offset the initial Z co-ordinate by, for all dialogs.
+     * This is needed to sit on top of the vanilla chat window.
+     */
+    private const val Z_INITIAL_OFFSET = 100f
 
     /** Renders widgets. */
     override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
@@ -44,9 +50,9 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
         val childY = if (cursorIsActive) j else -1
 
         guiGraphics.pose().pushPose()
-        guiGraphics.pose().translate(0f, 0f, -children.value.size * Z_OFFSET)
+        guiGraphics.pose().translate(0f, 0f, Z_INITIAL_OFFSET)
         children.value.forEach {
-            guiGraphics.pose().translate(0f, 0f, Z_OFFSET)
+            guiGraphics.pose().translate(0f, 0f, Z_STEP_PER_DIALOG)
             (it as Renderable).render(guiGraphics, childX, childY, f)
         }
         guiGraphics.pose().popPose()
@@ -144,4 +150,11 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
 
     /** Unused. */
     override fun narrationPriority(): NarratableEntry.NarrationPriority = NarratableEntry.NarrationPriority.NONE
+
+    /**
+     * The total amount of space in the Z axis that the dialogs have used,
+     * assuming each dialog spans across no more than [Z_STEP_PER_DIALOG].
+     */
+    @JvmStatic
+    internal fun zIndexUse() = Z_INITIAL_OFFSET + ((children.value.size + 1) * Z_STEP_PER_DIALOG)
 }

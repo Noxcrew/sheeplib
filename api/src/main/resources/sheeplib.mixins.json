@@ -1,8 +1,10 @@
 {
-  "package": "com.noxcrew.sheeplib.mixin",
-  "client": [
-    "ChatScreenMixin",
-    "GuiMixin",
-    "StringWidgetMixin"
-  ]
+    "package": "com.noxcrew.sheeplib.mixin",
+    "client": [
+        "ChatScreenMixin",
+        "GuiMixin",
+        "PlayerTabOverlayMixin",
+        "StringWidgetMixin",
+        "SubtitleOverlayMixin"
+    ]
 }

@@ -33,7 +33,8 @@ public object SheepLibTestMod : ClientModInitializer {
         "text" to ::textInputDialog,
         "progress" to ::ProgressDialog,
         "buttons" to ::ButtonCollectionsDialog,
-        "exception" to ::ExceptionDialog
+        "exception" to ::ExceptionDialog,
+        "z-index" to ::AdjustableZIndexDialog
     )
 
 
