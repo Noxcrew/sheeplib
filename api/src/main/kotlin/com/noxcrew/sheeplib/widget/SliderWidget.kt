@@ -52,6 +52,8 @@ public class SliderWidget(
     private val stepSize = (width - 3.0) / (max - min)
 
     private val offsets: List<Int> = DoubleArray(max - min + 1) { stepSize * it }.map(Double::roundToInt)
+
+    /** Updates the slider's current position based on the mouse's absolute X co-ordinate. */
     private fun updatePosition(mouseX: Int) {
         val offsetX = mouseX - x
         currentIndex = offsets.withIndex().minBy { abs(it.value - offsetX) }.index

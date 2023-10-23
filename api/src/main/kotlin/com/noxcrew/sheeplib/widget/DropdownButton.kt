@@ -43,6 +43,7 @@ public class DropdownButton<T : Any>(
         true,
         {}) {
 
+    /** The currently selected element. */
     public var selected: T = default
         private set(value) {
             field = value
@@ -56,6 +57,7 @@ public class DropdownButton<T : Any>(
     override fun maxTextWidth(): Int =
         super.maxTextWidth() - theme.icons.dropdown.width - theme.dimensions.paddingInner
 
+    /** Whether the button has an open selection popup. */
     private fun isOpen() = selectionPopup != null && parent.popup == selectionPopup
 
     override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
@@ -78,6 +80,7 @@ public class DropdownButton<T : Any>(
         }
     }
 
+    /** The selection popup, used to select an element when clicked. */
     private inner class SelectionPopup(x: Int, y: Int) : Dialog(x, y), Themed by withOuterPadding(parent.theme, 0) {
 
         init {

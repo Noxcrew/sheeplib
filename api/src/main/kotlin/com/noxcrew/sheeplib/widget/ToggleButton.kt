@@ -9,14 +9,29 @@ import kotlin.reflect.KProperty
  * A button that cycles between a list of entries.
  */
 public class ToggleButton<T>(
+    /** The entries that the button can cycle through. */
     private val entries: List<Entry<T>>,
+    /** The index of the currently selected entry. */
     private var currentIndex: Int = 0,
+    /** The text to show before the current entry's name. */
     private val prefix: Component? = null,
+    /** The button's theme. */
     theme: Themed,
+    /** A callback for when the button is clicked and the current entry changes. */
     private val changeHandler: ((T) -> Unit)?
 ) :
     ThemedButton(Component.empty(), theme = theme, clickHandler = { }) {
-    public data class Entry<T>(val contents: T, val text: Component, val style: Theme.ButtonStyle?) {
+
+    /** An entry. */
+    public data class Entry<T>(
+        /** The entry's value. This is never displayed to the player and can contain any value. */
+        val contents: T,
+        /** The text to display on the button for the entry. */
+        val text: Component,
+        /** The entry's button style. */
+        val style: Theme.ButtonStyle?,
+        ) {
+        /** Creates a new entry with translatable text, using the key defined in [text]. */
         public constructor(contents: T, text: String, style: Theme.ButtonStyle?) : this(
             contents,
             Component.translatable(text),
@@ -26,6 +41,7 @@ public class ToggleButton<T>(
 
     private lateinit var _message: Component
 
+    /** The currently selected entry. */
     public var current: Entry<T> =
         entries.getOrNull(currentIndex) ?: throw IllegalArgumentException("Entries must not be empty")
         private set(value) {
@@ -40,9 +56,11 @@ public class ToggleButton<T>(
     override fun getMessage(): Component = _message
 
     init {
+        // Set the current to update the text.
         current = current
     }
 
+    /** If the current entry has its own style, use that, otherwise use the button's own style. */
     override val style: Theme.ButtonStyle get() = current.style ?: super.style
 
     override fun onClick(d: Double, e: Double) {

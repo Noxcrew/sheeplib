@@ -40,6 +40,10 @@ public open class ThemedButton(
         messageWidth = Minecraft.getInstance().font.width(message)
     }
 
+    /**
+     * The maximum width that the button's text can cover, excluding padding.
+     * Used to calculate when to scroll text.
+     */
     protected open fun maxTextWidth(): Int = width - theme.dimensions.paddingInner * 2
 
     override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
