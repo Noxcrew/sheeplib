@@ -70,7 +70,7 @@ public class SliderWidget(
 
 
     override fun mouseScrolled(d: Double, e: Double, f: Double): Boolean {
-        currentIndex = (currentIndex + sign(f).toInt()).coerceIn(min..max)
+        currentIndex = (currentIndex + sign(f).toInt()).coerceIn(offsets.indices)
         return true
     }
 
