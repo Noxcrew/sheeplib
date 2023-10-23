@@ -2,27 +2,25 @@ package com.noxcrew.sheeplib.mixin;
 
 import com.noxcrew.sheeplib.DialogContainer;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.SubtitleOverlay;
+import net.minecraft.client.gui.components.PlayerTabOverlay;
+import net.minecraft.world.scores.Objective;
+import net.minecraft.world.scores.Scoreboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Increases the subtitle overlay's Z-axis to render on top of SheepLib dialogs.
+ * Increases the player tab overlay's Z-axis to render on top of SheepLib dialogs.
  */
-@Mixin(SubtitleOverlay.class)
-public class SubtitleOverlayMixin {
-    @SuppressWarnings({"MixinAnnotationTarget", "UnresolvedMixinReference"})
+@Mixin(PlayerTabOverlay.class)
+public class PlayerTabOverlayMixin {
+
     @Inject(
             method = "render",
-            at = @At(
-                    value = "NEW",
-                    target = "net/minecraft/world/phys/Vec3",
-                    ordinal = 0
-            )
+            at = @At("HEAD")
     )
-    public void pushPose(GuiGraphics guiGraphics, CallbackInfo ci) {
+    public void pushPose(GuiGraphics guiGraphics, int i, Scoreboard scoreboard, Objective objective, CallbackInfo ci) {
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(0.0, 0.0, DialogContainer.zIndexUse$sheeplib());
     }
@@ -31,7 +29,7 @@ public class SubtitleOverlayMixin {
             method = "render",
             at = @At("TAIL")
     )
-    public void popPose(GuiGraphics guiGraphics, CallbackInfo ci) {
+    public void popPose(GuiGraphics guiGraphics, int i, Scoreboard scoreboard, Objective objective, CallbackInfo ci) {
         guiGraphics.pose().popPose();
     }
 }

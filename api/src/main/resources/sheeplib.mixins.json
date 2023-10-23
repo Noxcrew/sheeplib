@@ -3,7 +3,8 @@
     "client": [
         "ChatScreenMixin",
         "GuiMixin",
+        "PlayerTabOverlayMixin",
         "StringWidgetMixin",
         "SubtitleOverlayMixin"
-  ]
+    ]
 }
