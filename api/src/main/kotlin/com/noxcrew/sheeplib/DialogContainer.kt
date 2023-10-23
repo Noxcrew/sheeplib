@@ -112,7 +112,6 @@ public object DialogContainer : Renderable, ContainerEventHandler, NarratableEnt
             "New focused element is not in the container"
         }
         focused = dialog
-        logger.info("Focused $dialog")
         minecraft.screen?.focused = this
     }
 

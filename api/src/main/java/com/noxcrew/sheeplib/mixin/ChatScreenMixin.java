@@ -6,10 +6,12 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -119,6 +121,19 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
         if (DialogContainer.INSTANCE.keyPressed(i, j, k)) {
             cir.setReturnValue(true);
         }
+    }
+
+    @Redirect(
+            method = "keyPressed",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
+            )
+    )
+    public boolean redirectSuper(Screen instance, int i, int j, int k) {
+        return i != GLFW.GLFW_KEY_UP &&
+                i != GLFW.GLFW_KEY_DOWN &&
+                super.keyPressed(i, j, k);
     }
 
     /**
