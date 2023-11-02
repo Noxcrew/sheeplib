@@ -40,6 +40,6 @@ public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Ac
 
         StringWidget(Component.literal("Buttons"), font).at(0, 0)
 
-        SliderWidget(100, 0, 8, this@ComponentsDialog).atBottom(0)
+        SliderWidget(100, 0, 8, this@ComponentsDialog, initial = -1).atBottom(0)
     }
 }

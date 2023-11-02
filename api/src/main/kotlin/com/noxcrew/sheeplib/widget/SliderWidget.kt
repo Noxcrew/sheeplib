@@ -23,6 +23,7 @@ public class SliderWidget(
     public val min: Int,
     public val max: Int,
     themed: Themed,
+    initial: Int = min,
     private val updateCallback: ((Int) -> Unit)? = null,
 ) :
     AbstractWidget(0, 0, width, HEIGHT, Component.empty()),
@@ -36,7 +37,7 @@ public class SliderWidget(
         check(max >= min + 2) { "Maximum must be larger than minimum by at least two" }
     }
 
-    private var currentIndex: Int = 0
+    private var currentIndex: Int = initial.coerceIn(min, max)
         set(value) {
             field = value
             updateCallback?.invoke(currentValue)
