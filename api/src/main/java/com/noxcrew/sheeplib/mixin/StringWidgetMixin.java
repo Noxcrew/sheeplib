@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,11 +40,11 @@ public class StringWidgetMixin implements StringWidgetExt {
             method = "renderWidget",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/util/FormattedCharSequence;III)I"
             )
     )
-    public int render(GuiGraphics instance, Font font, Component component, int i, int j, int k) {
-        return instance.drawString(font, component, i, j, k, shouldRenderWithShadow());
+    public int render(GuiGraphics instance, Font font, FormattedCharSequence formattedCharSequence, int i, int j, int k) {
+        return instance.drawString(font, formattedCharSequence, i, j, k, shouldRenderWithShadow());
     }
 
 }

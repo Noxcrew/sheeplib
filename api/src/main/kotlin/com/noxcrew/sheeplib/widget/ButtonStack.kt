@@ -1,7 +1,7 @@
 package com.noxcrew.sheeplib.widget
 
 import com.noxcrew.sheeplib.CompoundWidget
-import com.noxcrew.sheeplib.layout.AdjustableLinearLayout
+import com.noxcrew.sheeplib.layout.LinearLayout
 import com.noxcrew.sheeplib.theme.StaticColorReference
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
@@ -36,9 +36,7 @@ public class ButtonStack(
         )
     }
 
-    override val layout: Layout = AdjustableLinearLayout(
-        0,
-        lineHeight * entries.size,
+    override val layout: Layout = LinearLayout(
         LinearLayout.Orientation.VERTICAL,
         0,
     ) {

@@ -47,7 +47,12 @@ tasks {
     }
 }
 
+repositories {
+    maven("https://maven.noxcrew.com/public")
+}
+
 dependencies {
     compileOnly("org.jetbrains:annotations:24.0.1")
+    modCompileOnly(libs.noxesium) { isTransitive = false }
     testImplementation(kotlin("test"))
 }

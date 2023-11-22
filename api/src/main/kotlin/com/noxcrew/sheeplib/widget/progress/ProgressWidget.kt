@@ -46,11 +46,7 @@ public class ProgressWidget(width: Int, height: Int, theme: Themed) : CompoundWi
 
     private val text = ClickableTextWidget(progress.text, font)
 
-    override val layout: Layout = linear(
-        width,
-        font.lineHeight + theme.theme.dimensions.paddingInner + PROGRESS_BAR_WIDTH,
-        LinearLayout.Orientation.VERTICAL
-    ) {
+    override val layout: Layout = linear(LinearLayout.Orientation.VERTICAL) {
         +text
         +progressBar
     }

@@ -92,11 +92,7 @@ public class DropdownButton<T : Any>(
             val buttonHeight = Minecraft.getInstance().font.lineHeight + 3
             this@SelectionPopup.height = buttonHeight * options.size
 
-            return linear(
-                this@DropdownButton.width,
-                this@SelectionPopup.height,
-                LinearLayout.Orientation.VERTICAL
-            ) {
+            return linear(LinearLayout.Orientation.VERTICAL) {
                 options.forEach {
                     ThemedButton(
                         displayMapper(it),
