@@ -9,10 +9,10 @@ import net.minecraft.client.gui.layouts.LinearLayout.Orientation
 /**
  * A [LayoutBuilder] backed by a [LinearLayout].
  */
-public class LinearLayoutBuilder(x: Int, y: Int, width: Int, height: Int, orientation: Orientation, padding: Int) :
-    LayoutBuilder<AdjustableLinearLayout> {
+public class LinearLayoutBuilder(x: Int, y: Int, orientation: Orientation, padding: Int) :
+    LayoutBuilder<LinearLayout> {
 
-    private val layout = AdjustableLinearLayout(x, y, width, height, orientation)
+    private val layout = LinearLayout(x, y, orientation)
 
     private val _layoutSettings: LayoutSettings = LayoutSettings.defaults().apply {
         if (orientation == Orientation.HORIZONTAL) paddingVertical(padding)
@@ -47,39 +47,31 @@ public class LinearLayoutBuilder(x: Int, y: Int, width: Int, height: Int, orient
     public inline fun <T : LayoutElement> T.add(settings: LayoutSettings.() -> Unit): T =
         this.add(defaultLayoutSettings.also(settings))
 
-    override fun build(): AdjustableLinearLayout = layout
+    override fun build(): LinearLayout = layout
 }
 
 /**
  * Builds a new linear layout.
  *
- * @param width the layout's width
- * @param height the layout's height
  * @param orientation the layout's orientation
  * @param padding the minimum padding between elements. Elements may be spread out further to fill available space.
  * @param builder the builder
  */
-public inline fun AdjustableLinearLayout(
-    width: Int,
-    height: Int,
+public inline fun LinearLayout(
     orientation: Orientation,
     padding: Int,
     builder: LinearLayoutBuilder.() -> Unit,
-): AdjustableLinearLayout = LinearLayoutBuilder(0, 0, width, height, orientation, padding)
+): LinearLayout = LinearLayoutBuilder(0, 0, orientation, padding)
     .also(builder)
     .build()
 
 /**
  * Builds a new linear layout, using spacing from this theme.
  *
- * @param width the layout's width
- * @param height the layout's height
  * @param orientation the layout's orientation
  * @param builder the builder
  */
 public inline fun Themed.linear(
-    width: Int,
-    height: Int,
     orientation: Orientation,
     builder: LinearLayoutBuilder.() -> Unit
-): AdjustableLinearLayout = AdjustableLinearLayout(width, height, orientation, theme.dimensions.paddingInner, builder)
+): LinearLayout = LinearLayout(orientation, theme.dimensions.paddingInner, builder)

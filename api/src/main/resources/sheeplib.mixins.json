@@ -3,8 +3,10 @@
     "client": [
         "ChatScreenMixin",
         "GuiMixin",
+        "NoxesiumCompatGuiMixin",
         "PlayerTabOverlayMixin",
         "StringWidgetMixin",
         "SubtitleOverlayMixin"
-    ]
+    ],
+    "plugin": "com.noxcrew.sheeplib.SheepLibMixinPlugin"
 }

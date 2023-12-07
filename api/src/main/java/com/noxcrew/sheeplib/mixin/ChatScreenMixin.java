@@ -36,7 +36,6 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             at = @At("TAIL")
     )
     public void init(String string, CallbackInfo ci) {
-//        this.addWidget(DialogContainerScreen.INSTANCE);
         this.addWidget(DialogContainer.INSTANCE);
     }
 
@@ -48,16 +47,16 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             at = @At("HEAD"),
             cancellable = true
     )
-    public void mouseScrolled(double d, double e, double f, CallbackInfoReturnable<Boolean> cir) {
+    public void mouseScrolled(double d, double e, double f, double g, CallbackInfoReturnable<Boolean> cir) {
         final var focused = getFocused();
-        if (focused != null && focused.mouseScrolled(d, e, f)) {
+        if (focused != null && focused.mouseScrolled(d, e, f, g)) {
             cir.setReturnValue(true);
             return;
         }
 
         for (final var child : children()) {
             if (child == focused) continue;
-            if (child.mouseScrolled(d, e, f)) {
+            if (child.mouseScrolled(d, e, f, g)) {
                 cir.setReturnValue(true);
                 return;
             }
@@ -95,6 +94,7 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
         }
         return false;
     }
+
     @Override
     public boolean mouseDragged(double d, double e, int i, double f, double g) {
         return DialogContainer.INSTANCE.mouseDragged(d, e, i, f, g);
