@@ -15,7 +15,7 @@ public class AdjustableZIndexDialog(x: Int, y: Int) : Dialog(x, y), Themed by De
     private var index: Int = 0
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    override fun render(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
         graphics.pose().pushPose()
         graphics.pose().translate(0f, 0f, index.toFloat())
         super.render(graphics, i, j, f)

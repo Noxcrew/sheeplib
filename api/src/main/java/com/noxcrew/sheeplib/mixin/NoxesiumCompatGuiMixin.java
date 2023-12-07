@@ -29,7 +29,7 @@ public class NoxesiumCompatGuiMixin {
             at = @At("HEAD")
     )
     public void render(GuiGraphics guiGraphics, float f, CallbackInfo ci) {
-        if (NoxesiumMod.shouldDisableExperimentalPerformancePatches()) return;
+        if (NoxesiumMod.getInstance().getConfig().shouldDisableExperimentalPerformancePatches()) return;
 
         // FIXME: render order is completely off here. not sure if that's my fault or a noxesium thing
         final var window = this.minecraft.getWindow();

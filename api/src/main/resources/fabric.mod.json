@@ -25,7 +25,6 @@
   "accessWidener": "sheeplib.accessWidener",
   "depends": {
     "fabric-language-kotlin": ">=1.9.4+kotlin.1.8.21"
-
   },
   "custom": {
     "modmenu": {
