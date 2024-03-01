@@ -23,6 +23,7 @@ public inline fun GridLayoutBuilder.iconButtonRow(
     buttons.elements.forEachIndexed { index, (text, action) ->
         ThemedButton(
             text,
+            theme = theme,
             width = width,
             centreText = true,
             scrollText = false,

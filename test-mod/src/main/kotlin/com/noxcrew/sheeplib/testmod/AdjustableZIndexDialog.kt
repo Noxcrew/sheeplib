@@ -18,7 +18,7 @@ public class AdjustableZIndexDialog(x: Int, y: Int) : Dialog(x, y), Themed by De
     override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
         graphics.pose().pushPose()
         graphics.pose().translate(0f, 0f, index.toFloat())
-        super.render(graphics, i, j, f)
+        super.renderWidget(graphics, i, j, f)
         graphics.pose().popPose()
     }
 

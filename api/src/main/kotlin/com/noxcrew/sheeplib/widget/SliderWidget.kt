@@ -39,8 +39,9 @@ public class SliderWidget(
 
     private var currentIndex: Int = initial.coerceIn(min, max)
         set(value) {
+            val hasUpdated = field != value
             field = value
-            updateCallback?.invoke(currentValue)
+            if (hasUpdated) updateCallback?.invoke(currentValue)
         }
 
     /**
