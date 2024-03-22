@@ -188,12 +188,12 @@ public abstract class Dialog(
         if (theme.dialogBorders) graphics.renderOutline(x, y, getWidth(), getHeight(), theme.colors.border)
     }
 
-    override fun render(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
         if (isPopupFocused()) {
             RenderSystem.setShaderColor(1f, 1f, 1f, POPUP_FOCUSED_OPACITY)
         }
         renderBackground(graphics)
-        super.render(graphics, i, j, f)
+        super.renderWidget(graphics, i, j, f)
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
         popup?.let {
             graphics.pose().pushPose()

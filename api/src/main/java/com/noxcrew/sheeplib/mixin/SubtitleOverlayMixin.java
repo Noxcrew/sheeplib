@@ -13,14 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(SubtitleOverlay.class)
 public class SubtitleOverlayMixin {
-    @SuppressWarnings({"MixinAnnotationTarget", "UnresolvedMixinReference"})
     @Inject(
             method = "render",
-            at = @At(
-                    value = "NEW",
-                    target = "net/minecraft/world/phys/Vec3",
-                    ordinal = 0
-            )
+            at = @At("HEAD")
     )
     public void pushPose(GuiGraphics guiGraphics, CallbackInfo ci) {
         guiGraphics.pose().pushPose();
