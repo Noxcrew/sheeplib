@@ -1,6 +1,6 @@
 import org.gradle.accessors.dm.LibrariesForLibs
 
-val VERSION = "1.3.1"
+val VERSION = "1.3.2"
 
 allprojects {
     group = "com.noxcrew.sheeplib"

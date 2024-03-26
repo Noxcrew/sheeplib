@@ -37,7 +37,7 @@ public class SliderWidget(
         check(max >= min + 2) { "Maximum must be larger than minimum by at least two" }
     }
 
-    private var currentIndex: Int = initial.coerceIn(min, max)
+    private var currentIndex: Int = initial.coerceIn(min, max) - min
         set(value) {
             val hasUpdated = field != value
             field = value
