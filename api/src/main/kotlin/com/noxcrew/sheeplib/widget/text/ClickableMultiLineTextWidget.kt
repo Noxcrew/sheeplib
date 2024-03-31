@@ -12,12 +12,13 @@ import net.minecraft.util.FormattedCharSequence
 import kotlin.math.max
 
 /** Like [net.minecraft.client.gui.components.StringWidget] but multi-line, and clickable. */
-public class ClickableMultiLineTextWidget(
+public class ClickableMultiLineTextWidget @JvmOverloads constructor(
     component: Component,
     font: Font,
     theme: Themed = Theme.Active,
     private val maxLines: Int = -1,
     private val maxWidth: Int = -1,
+    private val useTextShadow: Boolean = false
 ) :
     AbstractStringWidget(
         0, 0, maxWidth, 0,
@@ -50,7 +51,7 @@ public class ClickableMultiLineTextWidget(
         var hoverStyle: Style? = null
         val shouldHover = isActive && isMouseOver(mouseX.toDouble(), mouseY.toDouble())
         lines.forEachIndexed { idx, text ->
-            graphics.drawString(font, text, x, height, theme.colors.textPrimary)
+            graphics.drawString(font, text, x, height, theme.colors.textPrimary, useTextShadow)
             if (shouldHover && mouseY > height && height + font.lineHeight >= mouseY) hoverStyle =
                 text.styleAtMouseX(idx)
             height += font.lineHeight
