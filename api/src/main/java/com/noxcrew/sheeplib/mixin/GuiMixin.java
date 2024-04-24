@@ -12,18 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
  */
 @Mixin(Gui.class)
 public class GuiMixin {
-//    @SuppressWarnings("InvalidInjectorMethodSignature")
-//    @Inject(
-//            method = "render",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lnet/minecraft/client/gui/GuiGraphics;III)V"
-//            ),
-//            locals = LocalCapture.CAPTURE_FAILHARD)
-//    public void render(GuiGraphics guiGraphics, float f, CallbackInfo ci, Window window, Scoreboard scoreboard, int o, int q) {
-//        DialogContainer.INSTANCE.render(guiGraphics, o, q, 0);
-//    }
-
     @ModifyExpressionValue(
             method="<init>",
             at = @At(

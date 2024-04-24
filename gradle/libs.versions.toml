@@ -7,7 +7,6 @@ fabric-loom = "1.6-SNAPSHOT"
 kotlin = "1.9.23"
 fabric-kotlin = "1.10.19+kotlin.1.9.23"
 coroutines = "1.7.3"
-noxesium = "2.0.2"
 
 jb-annotations = "24.0.1"
 
