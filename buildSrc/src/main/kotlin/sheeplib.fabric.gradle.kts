@@ -11,7 +11,7 @@ internal val Project.libs get() = project.extensions.getByName("libs") as Librar
 
 kotlin {
     explicitApi()
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks {

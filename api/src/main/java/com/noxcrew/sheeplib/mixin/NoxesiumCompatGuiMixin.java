@@ -36,6 +36,6 @@ public class NoxesiumCompatGuiMixin {
 
         final var mouseX = Mth.floor(minecraft.mouseHandler.xpos() * (double) window.getGuiScaledWidth() / (double) window.getScreenWidth());
         final var mouseY = Mth.floor(minecraft.mouseHandler.ypos() * (double) window.getGuiScaledHeight() / (double) window.getScreenHeight());
-        DialogContainer.INSTANCE.render(guiGraphics, mouseX, mouseY, 0);
+        DialogContainer.INSTANCE.render(guiGraphics, /*mouseX, mouseY,*/ 0);
     }
 }

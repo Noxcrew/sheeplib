@@ -4,9 +4,7 @@
         "ChatScreenMixin",
         "GuiMixin",
         "NoxesiumCompatGuiMixin",
-        "PlayerTabOverlayMixin",
-        "StringWidgetMixin",
-        "SubtitleOverlayMixin"
+        "StringWidgetMixin"
     ],
     "plugin": "com.noxcrew.sheeplib.SheepLibMixinPlugin"
 }
