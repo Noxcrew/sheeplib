@@ -48,5 +48,6 @@ tasks {
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:24.0.1")
+    compileOnlyApi("org.jetbrains:annotations:24.0.1")
+    testImplementation(kotlin("test"))
 }
