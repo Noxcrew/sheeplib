@@ -41,6 +41,10 @@ tasks {
             }
         }
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
