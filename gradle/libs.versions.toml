@@ -22,8 +22,6 @@ kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin",
 kotlin-jvm = { group = "org.jetbrains.kotlin", name = "jvm", version.ref = "kotlin" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
 
-noxesium = { group = "com.noxcrew.noxesium", name = "fabric", version.ref = "noxesium" }
-
 guava = { group = "com.google.guava", name = "guava" } # version from minecraftLibraries
 
 jb-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jb-annotations" }
