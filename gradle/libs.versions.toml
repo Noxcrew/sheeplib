@@ -1,7 +1,7 @@
 [versions]
-minecraft = "1.20.5"
+minecraft = "1.20.6"
 fabric-loader = "0.15.10"
-fabric-api = "0.97.6+1.20.5" # for the test mod only
+fabric-api = "0.98.0+1.20.6" # for the test mod only
 fabric-loom = "1.6-SNAPSHOT"
 
 kotlin = "1.9.23"
