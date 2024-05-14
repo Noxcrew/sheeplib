@@ -1,13 +1,12 @@
 [versions]
-minecraft = "1.20.4"
-fabric-loader = "0.15.0"
-fabric-api = "0.91.1+1.20.4" # for the test mod only
-fabric-loom = "1.4-SNAPSHOT"
+minecraft = "1.20.6"
+fabric-loader = "0.15.10"
+fabric-api = "0.98.0+1.20.6" # for the test mod only
+fabric-loom = "1.6-SNAPSHOT"
 
-kotlin = "1.9.0"
-fabric-kotlin = "1.10.0+kotlin.1.9.0"
+kotlin = "1.9.23"
+fabric-kotlin = "1.10.19+kotlin.1.9.23"
 coroutines = "1.7.3"
-noxesium = "1.2.0"
 
 jb-annotations = "24.0.1"
 
@@ -22,8 +21,6 @@ fabric-loom = { group = "net.fabricmc", name = "fabric-loom", version.ref = "fab
 kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jvm = { group = "org.jetbrains.kotlin", name = "jvm", version.ref = "kotlin" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
-
-noxesium = { group = "com.noxcrew.noxesium", name = "fabric", version.ref = "noxesium" }
 
 guava = { group = "com.google.guava", name = "guava" } # version from minecraftLibraries
 
