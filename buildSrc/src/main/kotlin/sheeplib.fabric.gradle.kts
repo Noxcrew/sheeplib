@@ -32,6 +32,7 @@ tasks {
 
 repositories {
     mavenCentral()
+    maven("https://repo.triumphteam.dev/snapshots")
 }
 
 dependencies {

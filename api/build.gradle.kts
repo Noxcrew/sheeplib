@@ -48,6 +48,8 @@ tasks {
 }
 
 dependencies {
+    include(libs.nova)
+    api(libs.nova)
     compileOnlyApi("org.jetbrains:annotations:24.0.1")
     testImplementation(kotlin("test"))
 }

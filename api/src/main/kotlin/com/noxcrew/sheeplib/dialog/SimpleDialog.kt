@@ -6,11 +6,14 @@ import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.gui.layouts.Layout
 import org.jetbrains.annotations.ApiStatus
+import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 
 /**
  * A basic, stateless dialog. Use this instead of subclassing if you don't need to keep track of state.
  */
 @ApiStatus.Experimental
+@Deprecated("Replaced with functional dialogs.")
+@ScheduledForRemoval(inVersion = "1.4.0")
 public class SimpleDialog(
     x: Int, y: Int,
     override val theme: Theme = DefaultTheme,
