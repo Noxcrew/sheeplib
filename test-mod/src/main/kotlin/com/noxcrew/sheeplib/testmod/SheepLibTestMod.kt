@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.noxcrew.sheeplib.DialogContainer
 import com.noxcrew.sheeplib.dialog.PromptDialog
+import com.noxcrew.sheeplib.dialog.testFunctionalDialog
 import com.noxcrew.sheeplib.theme.Theme
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
@@ -30,6 +31,7 @@ public object SheepLibTestMod : ClientModInitializer {
         "components" to ::ComponentsDialog,
         "popup" to ::PopupDialog,
         "example" to ::MyFirstDialog,
+        "functional" to ::testFunctionalDialog,
         "text" to ::textInputDialog,
         "progress" to ::ProgressDialog,
         "buttons" to ::ButtonCollectionsDialog,

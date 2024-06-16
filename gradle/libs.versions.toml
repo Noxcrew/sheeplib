@@ -7,6 +7,7 @@ fabric-loom = "1.7-SNAPSHOT"
 kotlin = "2.0.10"
 fabric-kotlin = "1.12.0+kotlin.2.0.10"
 coroutines = "1.9.0-RC.2"
+nova = "1.0.0-SNAPSHOT"
 
 jb-annotations = "24.0.1"
 
@@ -21,6 +22,8 @@ fabric-loom = { group = "net.fabricmc", name = "fabric-loom", version.ref = "fab
 kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jvm = { group = "org.jetbrains.kotlin", name = "jvm", version.ref = "kotlin" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
+
+nova = { group = "dev.triumphteam", name = "nova", version.ref = "nova" }
 
 guava = { group = "com.google.guava", name = "guava" } # version from minecraftLibraries
 
