@@ -9,5 +9,6 @@
   "sheeplib.progress.complete": "Complete",
   "sheeplib.progress.failed": "Failed",
 
-  "sheeplib.error": "[SheepLib] An error occurred while opening a dialog.\nCheck your game log for more information."
+  "sheeplib.error": "[SheepLib] An error occurred while opening a dialog.\nCheck your game log for more information.",
+  "sheeplib.error.coroutine": "[SheepLib] An error occurred in a dialog, so it was closed.\nCheck your game log for more information."
 }
