@@ -1,12 +1,12 @@
 [versions]
-minecraft = "1.20.6"
-fabric-loader = "0.15.10"
-fabric-api = "0.98.0+1.20.6" # for the test mod only
-fabric-loom = "1.6-SNAPSHOT"
+minecraft = "1.21.1"
+fabric-loader = "0.15.11"
+fabric-api = "0.102.1+1.21.1" # for the test mod only
+fabric-loom = "1.7-SNAPSHOT"
 
-kotlin = "1.9.23"
-fabric-kotlin = "1.10.19+kotlin.1.9.23"
-coroutines = "1.7.3"
+kotlin = "2.0.10"
+fabric-kotlin = "1.12.0+kotlin.2.0.10"
+coroutines = "1.9.0-RC.2"
 
 jb-annotations = "24.0.1"
 

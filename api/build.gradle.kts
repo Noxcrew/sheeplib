@@ -1,7 +1,6 @@
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import java.net.URL
 
 plugins {
@@ -21,8 +20,8 @@ buildscript {
 apply(plugin = "kotlinx-atomicfu")
 
 tasks {
-    java {
-        archivesName = "sheeplib"
+    jar {
+        archiveBaseName = "sheeplib"
     }
     withType<DokkaTask>().configureEach {
         pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {

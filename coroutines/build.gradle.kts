@@ -1,5 +1,4 @@
 
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 
 plugins {
     id("sheeplib.fabric")
@@ -13,7 +12,7 @@ dependencies {
 }
 
 tasks {
-    java {
-        archivesName = "sheeplib-coroutines"
+    jar {
+        archiveBaseName = "sheeplib-coroutines"
     }
 }

@@ -58,12 +58,12 @@ public val DefaultTheme: ThemeImpl = ThemeImpl(
         ),
     ),
     IconsImpl(
-        dropdown = Icon(ResourceLocation("sheeplib", "textures/dropdown.png"), 4, 7),
+        dropdown = Icon(ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/dropdown.png"), 4, 7),
         close = Icon(
-            ResourceLocation("sheeplib", "textures/close.png"),
+            ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/close.png"),
             5,
             5,
-            ResourceLocation("sheeplib", "textures/close_hover.png"),
+            ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/close_hover.png"),
         )
     ),
     true,
