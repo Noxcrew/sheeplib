@@ -4,6 +4,7 @@ import com.noxcrew.sheeplib.dialog.Dialog
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
 import net.minecraft.ChatFormatting
+import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.LayeredDraw
@@ -34,7 +35,7 @@ public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, Narrat
     /** Whether the container is currently being dragged. */
     private var isDragging: Boolean = false
 
-    override fun render(guiGraphics: GuiGraphics, f: Float) {
+    override fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
         val cursorIsActive = minecraft?.screen is ChatScreen
 
         val childX = if (cursorIsActive) minecraft.mouseHandler.xpos() / minecraft.window.guiScale else -1
@@ -47,7 +48,7 @@ public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, Narrat
 
         guiGraphics.pose().pushPose()
         children.forEach {
-            (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), f)
+            (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), deltaTracker.gameTimeDeltaTicks)
             guiGraphics.pose().translate(0f, 0f, zOffsetPerDialog)
         }
         guiGraphics.pose().popPose()

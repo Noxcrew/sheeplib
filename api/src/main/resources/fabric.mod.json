@@ -24,7 +24,7 @@
   "environment": "client",
   "accessWidener": "sheeplib.accessWidener",
   "depends": {
-    "fabric-language-kotlin": ">=1.9.4+kotlin.1.8.21"
+    "fabric-language-kotlin": ">=1.12.0+kotlin.2.0.10"
   },
   "custom": {
     "modmenu": {
