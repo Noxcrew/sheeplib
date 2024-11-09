@@ -6,7 +6,6 @@ import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.util.ReadOnlyDelegate
 import com.noxcrew.sheeplib.widget.SliderWidget
 import dev.triumphteam.nova.MutableState
-import dev.triumphteam.nova.Stateful
 import dev.triumphteam.nova.builtin.SimpleMutableState
 import dev.triumphteam.nova.policy.StateMutationPolicy
 import net.minecraft.client.Minecraft
@@ -25,10 +24,10 @@ public class FunctionalDialog(
     y: Int,
     theme: Themed,
     private val builder: FunctionalDialogBuilder.() -> Unit,
-) : Dialog(x, y), Stateful, Themed by theme {
+) : Dialog(x, y), Themed by theme {
 
     @PublishedApi
-    internal val states: MutableMap<String, Triple<MutableState<*>, KType, StateMutationPolicy>> = mutableMapOf()
+    internal val states: MutableMap<String, Triple<MutableState<*>, KType, StateMutationPolicy<*>>> = mutableMapOf()
 
     @PublishedApi
     internal fun initInternal() {
@@ -39,7 +38,7 @@ public class FunctionalDialog(
     internal inline fun <reified T : Any> getState(
         name: String,
         defaultValue: T,
-        mutationPolicy: StateMutationPolicy,
+        mutationPolicy: StateMutationPolicy<*>,
         rerenderOnChange: Boolean,
     ): MutableState<T> {
         states[name]?.let { (state, type, stateMutationPolicy) ->
@@ -69,7 +68,7 @@ public class FunctionalDialogBuilder(
 
     public inline fun <reified T : Any> state(
         defaultValue: T,
-        mutationPolicy: StateMutationPolicy = StateMutationPolicy.StructuralEquality.INSTANCE,
+        mutationPolicy: StateMutationPolicy<T> = StateMutationPolicy.StructuralEquality(),
         rerenderOnChange: Boolean = false,
     ): ReadOnlyDelegate<MutableState<T>> = ReadOnlyDelegate {
         dialog.getState(it.name, defaultValue, mutationPolicy, rerenderOnChange)
@@ -82,22 +81,22 @@ public class FunctionalDialogBuilder(
     }
 
     public fun <T, S> T.bind(state: MutableState<S>, property: KMutableProperty1<T, S>): T = also {
-        bind(state) { property.setter.call(state.value) }
+        bind(state) { property.setter.call(state.get()) }
     }
 }
 
 public val <S> MutableState<S>.setter: (S) -> Unit
     get() = { it: S ->
-        this.value = it
+        this.set(it)
     }
 
 public fun testFunctionalDialog(x: Int, y: Int): FunctionalDialog = FunctionalDialog(x, y, Theme.Active) {
     val count by state(0)
 
     layout = grid {
-        StringWidget(Component.literal(count.value.toString()), Minecraft.getInstance().font)
+        StringWidget(Component.literal(count.get().toString()), Minecraft.getInstance().font)
             .atBottom(0)
-            .bind(count) { it.message = Component.literal(count.value.toString()) }
+            .bind(count) { it.message = Component.literal(count.get().toString()) }
 
         SliderWidget(100, 0, 9, this@FunctionalDialog, updateCallback = count.setter).atBottom(0)
     }
