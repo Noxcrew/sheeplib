@@ -14,6 +14,10 @@ kotlin {
     jvmToolchain(21)
 }
 
+base {
+    archivesName = "sheeplib-${project.name}"
+}
+
 tasks {
     named<KotlinCompilationTask<*>>("compileKotlin") {
         compilerOptions {
