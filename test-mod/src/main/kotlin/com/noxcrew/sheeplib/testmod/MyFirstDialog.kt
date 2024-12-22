@@ -7,6 +7,7 @@ import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.ThemedButton
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.GridLayout
 import net.minecraft.network.chat.Component
@@ -33,6 +34,10 @@ public class MyFirstDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Activ
             // Button callback - close the dialog.
             close()
         }.at(1, 0)
+
+        Button.builder(
+            Component.literal("Vanilla test")
+        ) {}.build().at(2, 0)
 
         // GridLayoutBuilder has some nice ways of adding components
         // without having to give them all row and column values manually,

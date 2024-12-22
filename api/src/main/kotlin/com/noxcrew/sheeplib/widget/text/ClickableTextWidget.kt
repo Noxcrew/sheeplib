@@ -18,15 +18,19 @@ public class ClickableTextWidget(component: Component, font: Font) : StringWidge
         active = true
     }
 
-    override fun onClick(d: Double, e: Double) {
-        Minecraft.getInstance().screen?.handleComponentClicked(message.styleAtMouseX(d.toInt()))
+    override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
+        return super.mouseClicked(
+            d,
+            e,
+            i
+        ) && Minecraft.getInstance().screen?.handleComponentClicked(message.styleAtMouseX(d.toInt())) == true
     }
+
 
     override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
         super.renderWidget(guiGraphics, i, j, f)
         if (isHovered()) guiGraphics.renderComponentHoverEffect(font, message.styleAtMouseX(i), i, j)
     }
 
-    private fun Component.styleAtMouseX(mouseX: Int) =
-        font.splitter.componentStyleAtWidth(this, mouseX - x)
+    private fun Component.styleAtMouseX(mouseX: Int) = font.splitter.componentStyleAtWidth(this, mouseX - x)
 }

@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
  * Implements {@link StringWidgetExt} on {@link StringWidget}.
  */
 @Mixin(StringWidget.class)
+@SuppressWarnings("removal") // This mixin implements the offending method and will be removed with it.
 public class StringWidgetMixin implements StringWidgetExt {
 
     @Unique
