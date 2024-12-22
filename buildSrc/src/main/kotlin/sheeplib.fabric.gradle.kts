@@ -14,6 +14,10 @@ kotlin {
     jvmToolchain(21)
 }
 
+base {
+    archivesName = "sheeplib-${project.name}"
+}
+
 tasks {
     named<KotlinCompilationTask<*>>("compileKotlin") {
         compilerOptions {
@@ -32,6 +36,7 @@ tasks {
 
 repositories {
     mavenCentral()
+    maven("https://repo.triumphteam.dev/snapshots")
 }
 
 dependencies {
