@@ -24,24 +24,31 @@ public abstract class CoroutineScopeDialog(
     y: Int,
     dispatcher: CoroutineDispatcher = MinecraftDispatchers.Background,
 ) : Dialog(x, y),
-    CoroutineScope {
-    override val coroutineContext: CoroutineContext by lazy {
-        SupervisorJob() +
-                CoroutineName("$this") +
-                dispatcher +
-                CoroutineExceptionHandler { _, ex ->
-                    Minecraft.getInstance().gui.chat.addMessage(
-                        Component.translatable("sheeplib.error.coroutine").withStyle { it.withColor(ChatFormatting.RED) }
-                    )
-                    LoggerFactory.getLogger("SheepLib").error("Exception caught in dialog coroutine scope (${this::class.jvmName}):\n" + ex.stackTraceToString())
-                    close()
-                }
-    }
+    CoroutineScope, ICoroutineScopeDialog {
+    override val coroutineContext: CoroutineContext by createContext(this, dispatcher)
 
     /** Cancels the coroutine context. Must be invoked by overriders. */
     @MustBeInvokedByOverriders
     override fun onClose() {
         coroutineContext.cancel(DialogClosedCancellationException)
+    }
+
+    internal companion object {
+        internal fun <T> createContext(dialog: T, dispatcher: CoroutineDispatcher) where T : ICoroutineScopeDialog, T : Dialog =
+            lazy {
+                SupervisorJob() +
+                        CoroutineName("$dialog") +
+                        dispatcher +
+                        CoroutineExceptionHandler { _, ex ->
+                            Minecraft.getInstance().gui.chat.addMessage(
+                                Component.translatable("sheeplib.error.coroutine")
+                                    .withStyle { it.withColor(ChatFormatting.RED) }
+                            )
+                            LoggerFactory.getLogger("SheepLib")
+                                .error("Exception caught in dialog coroutine scope (${dialog::class.jvmName}):\n" + ex.stackTraceToString())
+                            dialog.close()
+                        }
+            }
     }
 }
 

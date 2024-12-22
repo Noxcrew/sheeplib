@@ -5,7 +5,6 @@ import com.noxcrew.sheeplib.CompoundWidget
 import com.noxcrew.sheeplib.DialogContainer
 import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
-import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -13,7 +12,6 @@ import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.util.Mth
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
-import java.io.Closeable
 
 /**
  * A base class for an interactable element present on the HUD.
@@ -21,17 +19,17 @@ import java.io.Closeable
 public abstract class Dialog(
     x: Int,
     y: Int
-) : CompoundWidget(x, y, 0, 0), Themed, Closeable {
+) : CompoundWidget(x, y, 0, 0), IDialog {
 
     /** The dialog's parent. */
-    public var parent: Dialog? = null
+    final override var parent: Dialog? = null
         private set
 
     private var dragStartX = -1
     private var dragStartY = -1
 
     /** The dialog's state. */
-    public var state: State = State.READY
+    final override var state: IDialog.State = IDialog.State.READY
         private set
 
     @get:Deprecated("Check state directly", ReplaceWith("state.isClosing"))
@@ -41,7 +39,7 @@ public abstract class Dialog(
     /**
      * A child dialog to show over the top of this one.
      */
-    public var popup: Dialog? = null
+    final override var popup: Dialog? = null
         private set(value) {
             field = value
             children().forEach { (it as? AbstractWidget)?.active = value == null }
@@ -52,7 +50,7 @@ public abstract class Dialog(
      *
      * @see [popup]
      */
-    public fun popup(dialog: Dialog, replace: Boolean = false) {
+    override fun popup(dialog: Dialog, replace: Boolean) {
         dialog.initIfNeeded()
         parent.let { p ->
             if (replace && p == null) {
@@ -71,20 +69,20 @@ public abstract class Dialog(
     /**
      * Gets whether this dialog has a popup open.
      */
-    public fun isPopupFocused(): Boolean = popup != null
+    override fun isPopupFocused(): Boolean = popup != null
 
     /**
      * Closes this dialog.
      */
     public final override fun close() {
         if (state.isClosing) return
-        state = State.CLOSING
+        state = IDialog.State.CLOSING
         parent?.also {
             if (it.popup == this) it.popup = null
             if (it.focused == this) it.focused = null
         } ?: run { DialogContainer -= this }
         onClose()
-        state = State.CLOSED
+        state = IDialog.State.CLOSED
     }
 
     /** This method is called before the dialog is closed. By default, it does nothing. */
@@ -110,11 +108,9 @@ public abstract class Dialog(
     // fixme: why is this different to Dialog.layout?
     private lateinit var dialogLayout: Layout
 
-    protected abstract fun layout(): Layout
+    override val title: DialogTitleWidget? = null
 
-    protected open val title: DialogTitleWidget? = null
-
-    private fun titleHeight() = title?.height ?: 0
+    override fun titleHeight(): Int = title?.height ?: 0
 
     /**
      * Initialises the dialog, building its layout and setting its dimensions.
@@ -139,12 +135,12 @@ public abstract class Dialog(
             (it as? DialogTitleWidget)?.onDialogResize()
         }
 
-        state = State.ACTIVE
+        state = IDialog.State.ACTIVE
     }
 
     /** Initialises the dialog if it hasn't been already. */
     public fun initIfNeeded() {
-        if (state == State.READY) init()
+        if (state == IDialog.State.READY) init()
     }
 
     override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
@@ -208,16 +204,4 @@ public abstract class Dialog(
         private const val POPUP_FOCUSED_OPACITY = 0.7f
     }
 
-    /** A dialog's state. */
-    public enum class State(public val isClosing: Boolean) {
-        /** The dialog has been created but not yet initialised. */
-        READY(false),
-        /** The dialog has been initialised and is ready to be used. */
-        ACTIVE(false),
-        /** The dialog is being closed. */
-        CLOSING(true),
-        /** The dialog has been closed. */
-        CLOSED(true),
-        ;
-    }
 }
