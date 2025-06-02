@@ -1,7 +1,6 @@
 package com.noxcrew.sheeplib.dialog.title
 
 import com.noxcrew.sheeplib.CompoundWidget
-import com.noxcrew.sheeplib.StringWidgetExt
 import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.layout.CanvasLayout
 import com.noxcrew.sheeplib.theme.Themed
@@ -47,10 +46,7 @@ public class TextTitleWidget(
         ClickableTextWidget(
             component,
             font,
-        ).also {
-            @Suppress("CAST_NEVER_SUCCEEDS") // mixin injected
-            (it as StringWidgetExt).shouldRenderWithShadow(false)
-        }.at(top = theme.dimensions.paddingOuter, left = theme.dimensions.paddingOuter)
+        ).at(top = theme.dimensions.paddingOuter, left = theme.dimensions.paddingOuter)
         if (isCloseable) {
             IconButton(
                 theme.icons.close,

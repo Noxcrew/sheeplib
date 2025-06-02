@@ -10,6 +10,7 @@ import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.gui.navigation.FocusNavigationEvent
 import net.minecraft.network.chat.Component
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * A widget that acts as a container for other widgets,
@@ -86,8 +87,10 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
     // --
     // Mouse
     // --
-    public override fun mouseClicked(d: Double, e: Double, i: Int): Boolean =
-        super<ContainerEventHandler>.mouseClicked(d, e, i)
+    public override fun mouseClicked(d: Double, e: Double, i: Int): Boolean = getChildAt(d, e)
+        .getOrNull()
+        ?.takeIf { it.mouseClicked(d, e, i) }
+        ?.also { it.isFocused = true } != null
 
     public override fun mouseReleased(d: Double, e: Double, i: Int): Boolean =
         super<ContainerEventHandler>.mouseReleased(d, e, i)

@@ -20,7 +20,7 @@ import java.io.Closeable
  */
 public abstract class Dialog(
     x: Int,
-    y: Int
+    y: Int,
 ) : CompoundWidget(x, y, 0, 0), Themed, Closeable {
 
     /** The dialog's parent. */
@@ -149,8 +149,8 @@ public abstract class Dialog(
 
     override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
         if ((popup?.mouseClicked(d, e, i) == true) || super.mouseClicked(d, e, i)) return true
-        if (!clicked(d, e)) return false
-        isDragging = false
+        if (!isMouseOver(d, e)) return false
+        isDragging = true
         dragStartX = x - d.toInt()
         dragStartY = y - e.toInt()
         return true
@@ -163,9 +163,7 @@ public abstract class Dialog(
 
     override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean {
         if ((popup?.mouseDragged(d, e, i, f, g) == true) || super.mouseDragged(d, e, i, f, g)) return true
-        // yes, isDragging is backwards - it's a vanilla feature that
-        // behaves in the exact opposite way to what i need
-        if (isDragging || dragStartX == -1) return false
+        if (!isDragging || dragStartX == -1) return false
         x = dragStartX + d.toInt()
         y = dragStartY + e.toInt()
         return true
@@ -212,10 +210,13 @@ public abstract class Dialog(
     public enum class State(public val isClosing: Boolean) {
         /** The dialog has been created but not yet initialised. */
         READY(false),
+
         /** The dialog has been initialised and is ready to be used. */
         ACTIVE(false),
+
         /** The dialog is being closed. */
         CLOSING(true),
+
         /** The dialog has been closed. */
         CLOSED(true),
         ;
