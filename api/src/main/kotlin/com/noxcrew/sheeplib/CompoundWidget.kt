@@ -96,7 +96,9 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
         super<ContainerEventHandler>.mouseReleased(d, e, i)
 
     public override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean =
-        super<ContainerEventHandler>.mouseDragged(d, e, i, f, g)
+        getChildAt(d, e)
+            .getOrNull()
+            ?.mouseDragged(d, e, i, f, g) == true
 
 
     private var isDragging: Boolean = false

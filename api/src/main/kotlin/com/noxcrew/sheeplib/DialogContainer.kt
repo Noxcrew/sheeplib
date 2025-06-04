@@ -38,9 +38,8 @@ public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, Narrat
     override fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
         val cursorIsActive = minecraft?.screen is ChatScreen
 
-        // TODO(lucy): something changed between 1.21.2 and .4 such that half the gui scale is needed. why?
-        val childX = if (cursorIsActive) minecraft.mouseHandler.xpos() / (minecraft.window.guiScale / 2) else -1
-        val childY = if (cursorIsActive) minecraft.mouseHandler.ypos() / (minecraft.window.guiScale / 2) else -1
+        val childX = if (cursorIsActive) minecraft.mouseHandler.getScaledXPos(minecraft.window) else -1
+        val childY = if (cursorIsActive) minecraft.mouseHandler.getScaledYPos(minecraft.window) else -1
 
         val children = children.value
 
