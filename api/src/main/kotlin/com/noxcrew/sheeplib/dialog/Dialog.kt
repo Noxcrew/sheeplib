@@ -157,6 +157,7 @@ public abstract class Dialog(
     }
 
     override fun mouseReleased(d: Double, e: Double, i: Int): Boolean {
+        popup?.mouseReleased(d, e, i)
         dragStartX = -1
         return super.mouseReleased(d, e, i)
     }
