@@ -87,10 +87,15 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
     // --
     // Mouse
     // --
-    public override fun mouseClicked(d: Double, e: Double, i: Int): Boolean = getChildAt(d, e)
-        .getOrNull()
-        ?.takeIf { it.mouseClicked(d, e, i) }
-        ?.also { it.isFocused = true } != null
+    public override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
+        if (getChildAt(d, e)
+                .getOrNull()
+                ?.takeIf { it.mouseClicked(d, e, i) }
+                ?.also { setFocused(it) } != null
+        ) return true
+        setFocused(null)
+        return false
+    }
 
     public override fun mouseReleased(d: Double, e: Double, i: Int): Boolean =
         super<ContainerEventHandler>.mouseReleased(d, e, i)
