@@ -7,7 +7,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.LayeredDraw
 import net.minecraft.client.gui.components.Renderable
 import net.minecraft.client.gui.components.events.ContainerEventHandler
 import net.minecraft.client.gui.components.events.GuiEventListener
@@ -21,7 +20,7 @@ import kotlin.reflect.jvm.jvmName
 /**
  * The container for all open dialogs.
  */
-public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, NarratableEntry {
+public object DialogContainer : ContainerEventHandler, NarratableEntry {
 
     private val minecraft = Minecraft.getInstance()
     private val logger = LoggerFactory.getLogger("SheepLib")
@@ -35,23 +34,15 @@ public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, Narrat
     /** Whether the container is currently being dragged. */
     private var isDragging: Boolean = false
 
-    override fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
+    /** Renders all opened dialogs. */
+    public fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
         val cursorIsActive = minecraft?.screen is ChatScreen
 
         val childX = if (cursorIsActive) minecraft.mouseHandler.getScaledXPos(minecraft.window) else -1
         val childY = if (cursorIsActive) minecraft.mouseHandler.getScaledYPos(minecraft.window) else -1
-
-        val children = children.value
-
-        // Share the Z space evenly between dialogs..
-        val zOffsetPerDialog = LayeredDraw.Z_SEPARATION / children.size
-
-        guiGraphics.pose().pushPose()
-        children.forEach {
+        children.value.forEach {
             (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), deltaTracker.gameTimeDeltaTicks)
-            guiGraphics.pose().translate(0f, 0f, zOffsetPerDialog)
         }
-        guiGraphics.pose().popPose()
     }
 
     /** Returns an immutable view of this container's dialog. */
@@ -98,7 +89,6 @@ public object DialogContainer : LayeredDraw.Layer, ContainerEventHandler, Narrat
      * @throws IllegalArgumentException if [dialog] is both not null and not in this container
      */
     override fun setFocused(dialog: GuiEventListener?) {
-
         if (dialog == null) {
             focused?.focused = null
         }

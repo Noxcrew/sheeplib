@@ -1,8 +1,9 @@
 {
     "package": "com.noxcrew.sheeplib.mixin",
     "client": [
+        "AbstractWidgetMixin",
         "ChatScreenMixin",
-        "GuiMixin",
-        "StringWidgetMixin"
+        "GuiGraphicsMixin",
+        "GuiMixin"
     ]
 }
