@@ -34,6 +34,9 @@ public abstract class Dialog(
     public var state: State = State.READY
         private set
 
+    protected open var disableDragX: Boolean = false
+    protected open var disableDragY: Boolean = false
+
     @get:Deprecated("Check state directly", ReplaceWith("state.isClosing"))
     @get:ScheduledForRemoval(inVersion = "1.0.0")
     public val isClosing: Boolean get() = state.isClosing
@@ -165,8 +168,8 @@ public abstract class Dialog(
     override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean {
         if ((popup?.mouseDragged(d, e, i, f, g) == true) || super.mouseDragged(d, e, i, f, g)) return true
         if (!isDragging || dragStartX == -1) return false
-        x = dragStartX + d.toInt()
-        y = dragStartY + e.toInt()
+        x = if (!disableDragX) dragStartX + d.toInt() else x
+        y = if (!disableDragY) dragStartY + e.toInt() else y
         return true
     }
 
