@@ -35,7 +35,8 @@ public object SheepLibTestMod : ClientModInitializer {
         "buttons" to ::ButtonCollectionsDialog,
         "exception" to ::ExceptionDialog,
         "exception-coroutine" to ::ExceptionCoroutineDialog,
-        "z-index" to ::AdjustableZIndexDialog
+        "z-index" to ::AdjustableZIndexDialog,
+        "disable-axis" to ::DisabledDragAxisDialog
     )
 
 
