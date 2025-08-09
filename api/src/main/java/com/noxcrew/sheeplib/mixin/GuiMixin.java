@@ -14,7 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(Gui.class)
 public class GuiMixin {
-    @Inject(method = "render", at = @At("TAIL"))
+    @Inject(
+            method = "render",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/Gui;renderTabList(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V"
+            ))
     public void render(GuiGraphics graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         DialogContainer.INSTANCE.render(graphics, deltaTracker);
     }
