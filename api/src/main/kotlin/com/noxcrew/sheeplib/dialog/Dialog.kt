@@ -185,7 +185,7 @@ public abstract class Dialog(
             y,
             x + getWidth(),
             y + getHeight(),
-            ARGB.color(if (isPopupFocused()) (255 * POPUP_FOCUSED_OPACITY).toInt() else 255, baseColor)
+            if (isPopupFocused()) ARGB.color(ARGB.alpha(baseColor) * POPUP_FOCUSED_OPACITY, baseColor) else baseColor
         )
         if (theme.dialogBorders) graphics.renderOutline(x, y, getWidth(), getHeight(), theme.colors.border)
     }
