@@ -7,15 +7,19 @@ import com.noxcrew.sheeplib.GuiGraphicsExt
 import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
+import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.renderer.RenderPipelines
+import net.minecraft.network.chat.Component
 import net.minecraft.util.ARGB
 import net.minecraft.util.Mth
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
+import org.slf4j.LoggerFactory
 import java.io.Closeable
+import kotlin.reflect.jvm.jvmName
 
 /**
  * A base class for an interactable element present on the HUD.
@@ -55,7 +59,16 @@ public abstract class Dialog(
      * @see [popup]
      */
     public fun popup(dialog: Dialog, replace: Boolean = false) {
-        dialog.initIfNeeded()
+        try {
+            dialog.initIfNeeded()
+        } catch (ex: Throwable) {
+            Minecraft.getInstance().gui.chat.addMessage(
+                Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
+            )
+            LoggerFactory.getLogger("SheepLib").error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
+            return
+        }
+
         parent.let { p ->
             if (replace && p == null) {
                 DialogContainer += dialog
