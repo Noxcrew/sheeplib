@@ -6,6 +6,10 @@ plugins {
     kotlin("jvm")
 }
 
+base {
+    archivesName = "sheeplib-${project.name}"
+}
+
 // https://github.com/gradle/gradle/issues/15383#issuecomment-779893192
 internal val Project.libs get() = project.extensions.getByName("libs") as LibrariesForLibs
 
