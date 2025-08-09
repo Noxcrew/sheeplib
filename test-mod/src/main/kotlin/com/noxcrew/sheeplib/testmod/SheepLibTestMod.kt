@@ -34,8 +34,7 @@ public object SheepLibTestMod : ClientModInitializer {
         "progress" to ::ProgressDialog,
         "buttons" to ::ButtonCollectionsDialog,
         "exception" to ::ExceptionDialog,
-        "exception-coroutine" to ::ExceptionCoroutineDialog,
-        "z-index" to ::AdjustableZIndexDialog
+        "exception-coroutine" to ::ExceptionCoroutineDialog
     )
 
 

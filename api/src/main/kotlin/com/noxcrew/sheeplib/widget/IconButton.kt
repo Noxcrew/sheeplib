@@ -27,7 +27,7 @@ public class IconButton(
     override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
         icon.blit(guiGraphics, x + marginX, y + marginY, isHovered = isHovered())
         if (isHovered() && hoverText != null) {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, hoverText, x, y)
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, hoverText, x, y)
         }
     }
 

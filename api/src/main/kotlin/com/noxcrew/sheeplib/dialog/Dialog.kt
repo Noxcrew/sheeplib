@@ -1,8 +1,9 @@
 package com.noxcrew.sheeplib.dialog
 
-import com.mojang.blaze3d.systems.RenderSystem
+import com.noxcrew.sheeplib.AbstractWidgetExt
 import com.noxcrew.sheeplib.CompoundWidget
 import com.noxcrew.sheeplib.DialogContainer
+import com.noxcrew.sheeplib.GuiGraphicsExt
 import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
@@ -10,7 +11,8 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.layouts.Layout
-import net.minecraft.client.renderer.RenderType
+import net.minecraft.client.renderer.RenderPipelines
+import net.minecraft.util.ARGB
 import net.minecraft.util.Mth
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 import java.io.Closeable
@@ -176,30 +178,42 @@ public abstract class Dialog(
      * [Theme.Colors.border] border.
      */
     protected open fun renderBackground(graphics: GuiGraphics) {
+        val baseColor = if (parent == null) theme.colors.dialogBackgroundAlt else theme.colors.dialogBackground
         graphics.fill(
-            RenderType.gui(),
+            RenderPipelines.GUI,
             x,
             y,
             x + getWidth(),
             y + getHeight(),
-            if (parent == null) theme.colors.dialogBackgroundAlt else theme.colors.dialogBackground
+            ARGB.color(if (isPopupFocused()) (255 * POPUP_FOCUSED_OPACITY).toInt() else 255, baseColor)
         )
         if (theme.dialogBorders) graphics.renderOutline(x, y, getWidth(), getHeight(), theme.colors.border)
     }
 
     override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
-        if (isPopupFocused()) {
-            RenderSystem.setShaderColor(1f, 1f, 1f, POPUP_FOCUSED_OPACITY)
-        }
         renderBackground(graphics)
-        super.renderWidget(graphics, i, j, f)
-        RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
-        popup?.let {
-            graphics.pose().pushPose()
-            graphics.pose().translate(0f, 0f, 1f)
-            it.render(graphics, i, j, f)
-            graphics.pose().popPose()
+
+        // Ensure none of the elements in the child widget can be focused
+        val focused = isPopupFocused()
+        for (it in children) {
+            if (it is AbstractWidgetExt) {
+                it.`sheeplib$setHoverable`(!focused)
+            }
         }
+
+        if (focused) {
+            // If the pop-up is focused we render the sub-dialog with an opacity override so all text
+            // is drawn slightly opaque. We cannot draw everything with a reduced opacity but text is
+            // most common so worth overriding.
+            val override = (graphics as GuiGraphicsExt).`sheeplib$getTextOpacityOverride`()
+            (graphics as GuiGraphicsExt).`sheeplib$setTextOpacityOverride`(POPUP_FOCUSED_OPACITY)
+            super.renderWidget(graphics, i, j, f)
+            (graphics as GuiGraphicsExt).`sheeplib$setTextOpacityOverride`(override)
+        } else {
+            super.renderWidget(graphics, i, j, f)
+        }
+
+        popup?.render(graphics, i, j, f)
     }
 
     protected companion object {

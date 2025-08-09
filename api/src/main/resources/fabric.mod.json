@@ -23,6 +23,16 @@
   "mixins": [ "sheeplib.mixins.json" ],
   "environment": "client",
   "accessWidener": "sheeplib.accessWidener",
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/client/gui/components/AbstractWidget": [
+        "com/noxcrew/sheeplib/AbstractWidgetExt"
+      ],
+      "net/minecraft/client/gui/GuiGraphics": [
+        "com/noxcrew/sheeplib/GuiGraphicsExt"
+      ]
+    }
+  },
   "depends": {
     "fabric-language-kotlin": ">=1.12.0+kotlin.2.0.10"
   },
