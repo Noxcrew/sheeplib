@@ -61,6 +61,6 @@ public class ClickableMultiLineTextWidget(
     }
 
     override fun onClick(mouseX: Double, mouseY: Double) {
-        Minecraft.getInstance().screen?.handleComponentClicked(styleAt(mouseX.toInt(), mouseY.toInt()))
+        styleAt(mouseX.toInt(), mouseY.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) }
     }
 }

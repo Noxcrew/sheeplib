@@ -23,7 +23,7 @@ public class ClickableTextWidget(component: Component, font: Font) : StringWidge
             d,
             e,
             i
-        ) && Minecraft.getInstance().screen?.handleComponentClicked(message.styleAtMouseX(d.toInt())) == true
+        ) && message.styleAtMouseX(d.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) } == true
     }
 
 
