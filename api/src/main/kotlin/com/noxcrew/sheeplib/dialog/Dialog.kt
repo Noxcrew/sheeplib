@@ -108,18 +108,15 @@ public abstract class Dialog(
     }
 
     final override fun setX(i: Int) {
-        val adjustedX = Mth.clamp(i, 0, (Minecraft.getInstance().window.guiScaledWidth) - width)
-        dialogLayout.x = adjustedX + theme.dimensions.paddingOuter
-        title?.x = adjustedX
-        super.setX(adjustedX)
+        dialogLayout.x = i + theme.dimensions.paddingOuter
+        title?.x = i
+        super.setX(i)
     }
 
     final override fun setY(i: Int) {
-        val adjustedY =
-            Mth.clamp(i, 0, (Minecraft.getInstance().window.guiScaledHeight) - height - BOTTOM_EDGE_DEAD_ZONE)
-        dialogLayout.y = adjustedY + theme.dimensions.paddingOuter + titleHeight()
-        title?.y = adjustedY
-        super.setY(adjustedY)
+        dialogLayout.y = i + theme.dimensions.paddingOuter + titleHeight()
+        title?.y = i
+        super.setY(i)
     }
 
     // fixme: why is this different to Dialog.layout?
@@ -180,9 +177,39 @@ public abstract class Dialog(
     override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean {
         if ((popup?.mouseDragged(d, e, i, f, g) == true) || super.mouseDragged(d, e, i, f, g)) return true
         if (!isDragging || dragStartX == -1) return false
-        x = dragStartX + d.toInt()
-        y = dragStartY + e.toInt()
+        moveDragged(dragStartX + d.toInt(), dragStartY + e.toInt())
         return true
+    }
+
+    /**
+     * Updates the dialog's position in response to user drag events.
+     *
+     * This method is called whenever the dialog is dragged, providing the new
+     * coordinates where the dialog should be positioned. By default, the
+     * coordinates are clamped to ensure the dialog remains fully visible within
+     * the window bounds, preventing it from being dragged off-screen.
+     *
+     * You can override this method to customize or further constrain the dialog's
+     * movement behavior.
+     *
+     * @param draggedX The new horizontal position (X) of the dialog
+     *                 after the drag event.
+     * @param draggedY The new vertical position (Y) of the dialog
+     *                 after the drag event.
+     */
+    protected open fun moveDragged(draggedX: Int, draggedY: Int) {
+        /** Default adjustments */
+        val adjustedX = Mth.clamp(
+            draggedX, 0,
+            Minecraft.getInstance().window.guiScaledWidth - width
+        )
+        val adjustedY = Mth.clamp(
+            draggedY, 0,
+            Minecraft.getInstance().window.guiScaledHeight - height - BOTTOM_EDGE_DEAD_ZONE
+        )
+
+        x = adjustedX
+        y = adjustedY
     }
 
     /**
