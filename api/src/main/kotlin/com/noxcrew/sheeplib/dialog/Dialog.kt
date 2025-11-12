@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.layouts.Layout
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 import net.minecraft.util.ARGB
@@ -162,26 +163,26 @@ public abstract class Dialog(
         if (state == State.READY) init()
     }
 
-    override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
-        if ((popup?.mouseClicked(d, e, i) == true) || super.mouseClicked(d, e, i)) return true
-        if (!isMouseOver(d, e)) return false
+    override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
+        if ((popup?.mouseClicked(mouseButtonEvent, bl) == true) || super.mouseClicked(mouseButtonEvent, bl)) return true
+        if (!isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)) return false
         isDragging = true
-        dragStartX = x - d.toInt()
-        dragStartY = y - e.toInt()
+        dragStartX = x - mouseButtonEvent.x.toInt()
+        dragStartY = y - mouseButtonEvent.y.toInt()
         return true
     }
 
-    override fun mouseReleased(d: Double, e: Double, i: Int): Boolean {
-        popup?.mouseReleased(d, e, i)
+    override fun mouseReleased(mouseButtonEvent: MouseButtonEvent): Boolean {
+        popup?.mouseReleased(mouseButtonEvent)
         dragStartX = -1
-        return super.mouseReleased(d, e, i)
+        return super.mouseReleased(mouseButtonEvent)
     }
 
-    override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean {
-        if ((popup?.mouseDragged(d, e, i, f, g) == true) || super.mouseDragged(d, e, i, f, g)) return true
+    override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean {
+        if ((popup?.mouseDragged(mouseButtonEvent, d, e) == true) || super.mouseDragged(mouseButtonEvent, d, e)) return true
         if (!isDragging || dragStartX == -1) return false
-        x = dragStartX + d.toInt()
-        y = dragStartY + e.toInt()
+        x = dragStartX + mouseButtonEvent.x.toInt()
+        y = dragStartY + mouseButtonEvent.y.toInt()
         return true
     }
 
@@ -200,7 +201,21 @@ public abstract class Dialog(
             y + getHeight(),
             if (isPopupFocused()) ARGB.color(ARGB.alpha(baseColor) * POPUP_FOCUSED_OPACITY, baseColor) else baseColor
         )
-        if (theme.dialogBorders) graphics.renderOutline(x, y, getWidth(), getHeight(), theme.colors.border)
+
+        // graphics.submitOutline(...) is deferred and causes the outline to be drawn on the wrong z layer
+        if (theme.dialogBorders) {
+            val color = theme.colors.border
+            graphics.fill(x, y, x + getWidth(), y + 1, color)
+            graphics.fill(x, y + getHeight() - 1, x + getWidth(), y + getHeight(), color)
+            graphics.fill(x, y + 1, x + 1, y + getHeight() - 1, color)
+            graphics.fill(
+                x + getWidth() - 1,
+                y + 1,
+                x + getWidth(),
+                y + getHeight() - 1,
+                color
+            )
+        }
     }
 
     override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {

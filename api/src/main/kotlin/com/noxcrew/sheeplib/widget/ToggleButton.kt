@@ -2,6 +2,7 @@ package com.noxcrew.sheeplib.widget
 
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import kotlin.reflect.KProperty
 
@@ -63,7 +64,7 @@ public class ToggleButton<T>(
     /** If the current entry has its own style, use that, otherwise use the button's own style. */
     override val style: Theme.ButtonStyle get() = current.style ?: super.style
 
-    override fun onClick(d: Double, e: Double) {
+    override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean) {
         if (!isEnabled) return
         currentIndex = (currentIndex + 1) % entries.size
         current = entries[currentIndex]

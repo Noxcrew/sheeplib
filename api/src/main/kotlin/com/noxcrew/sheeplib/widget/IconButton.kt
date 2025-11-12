@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 
 /**
@@ -31,7 +32,7 @@ public class IconButton(
         }
     }
 
-    override fun onClick(d: Double, e: Double): Unit = clickHandler(x, y)
+    override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Unit = clickHandler(x, y)
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput): Unit = Unit
 }
 

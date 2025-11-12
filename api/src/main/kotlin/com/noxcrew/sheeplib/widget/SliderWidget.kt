@@ -4,6 +4,7 @@ import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -61,8 +62,8 @@ public class SliderWidget(
         currentIndex = offsets.withIndex().minBy { abs(it.value - offsetX) }.index
     }
 
-    override fun onClick(d: Double, e: Double): Unit = updatePosition(d.toInt())
-    override fun onDrag(d: Double, e: Double, f: Double, g: Double): Unit = updatePosition(d.toInt())
+    override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Unit = updatePosition(mouseButtonEvent.x.toInt())
+    override fun onDrag(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Unit = updatePosition(mouseButtonEvent.x.toInt())
     override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
         guiGraphics.fill(x, y + (HEIGHT / 2 - 1), x + width, y + (HEIGHT / 2 + 1), theme.colors.textSecondary)
 

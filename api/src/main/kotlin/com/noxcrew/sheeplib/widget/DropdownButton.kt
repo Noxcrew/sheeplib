@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 
 /**
@@ -73,7 +74,7 @@ public class DropdownButton<T : Any>(
         }
     }
 
-    override fun onClick(d: Double, e: Double) {
+    override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean) {
         if (isOpen()) return
         selectionPopup = SelectionPopup(x, y).also {
             parent.popup(it, false)
@@ -110,12 +111,12 @@ public class DropdownButton<T : Any>(
             close()
         }
 
-        override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
-            if (!this@DropdownButton.isHoveredOrFocused and !isMouseOver(d, e)) {
+        override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
+            if (!this@DropdownButton.isHoveredOrFocused and !isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)) {
                 close()
                 return false
             }
-            return super.mouseClicked(d, e, i)
+            return super.mouseClicked(mouseButtonEvent, bl)
         }
     }
 }

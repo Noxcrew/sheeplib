@@ -2,10 +2,10 @@ package com.noxcrew.sheeplib.util
 
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.FontDescription
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.TextColor
-import net.minecraft.resources.ResourceLocation
 
 @DslMarker @Target(AnnotationTarget.CLASS)
 private annotation class ComponentBuilderDsl
@@ -73,7 +73,7 @@ public class ComponentBuilder(public val component: MutableComponent) {
     /**
      * The component's font.
      */
-    public var font: ResourceLocation?
+    public var font: FontDescription?
         get() = component.style.font
         set(value) {
             component.style = component.style.withFont(value)
