@@ -5,6 +5,9 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +38,7 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             method = "<init>",
             at = @At("TAIL")
     )
-    public void init(String string, CallbackInfo ci) {
+    public void init(String string, boolean bl, CallbackInfo ci) {
         this.addWidget(DialogContainer.INSTANCE);
     }
 
@@ -71,9 +74,9 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             at = @At("HEAD"),
             cancellable = true
     )
-    public void mouseClicked(double d, double e, int i, CallbackInfoReturnable<Boolean> cir) {
+    public void mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl, CallbackInfoReturnable<Boolean> cir) {
         for (final var child : children()) {
-            if (child != null && child.mouseClicked(d, e, i)) {
+            if (child != null && child.mouseClicked(mouseButtonEvent, bl)) {
                 cir.setReturnValue(true);
                 return;
             }
@@ -85,10 +88,10 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
      * Delegate mouse release to all children.
      */
     @Override
-    public boolean mouseReleased(double d, double e, int i) {
+    public boolean mouseReleased(MouseButtonEvent mouseButtonEvent) {
         setDragging(false);
         for (final var child : children()) {
-            if (child != null && child.mouseReleased(d, e, i)) {
+            if (child != null && child.mouseReleased(mouseButtonEvent)) {
                 return true;
             }
         }
@@ -96,8 +99,8 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
     }
 
     @Override
-    public boolean mouseDragged(double d, double e, int i, double f, double g) {
-        return DialogContainer.INSTANCE.mouseDragged(d, e, i, f, g);
+    public boolean mouseDragged(MouseButtonEvent mouseButtonEvent, double d, double e) {
+        return DialogContainer.INSTANCE.mouseDragged(mouseButtonEvent, d, e);
     }
 
     /**
@@ -105,8 +108,8 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
      * This is necessary as {@link ChatScreen} assumes that the input element is the only child.
      */
     @Override
-    public boolean charTyped(char c, int i) {
-        return DialogContainer.INSTANCE.charTyped(c, i) || input.charTyped(c, i);
+    public boolean charTyped(CharacterEvent characterEvent) {
+        return DialogContainer.INSTANCE.charTyped(characterEvent) || input.charTyped(characterEvent);
     }
 
     /**
@@ -117,8 +120,8 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             at = @At("HEAD"),
             cancellable = true
     )
-    public void keyPressed(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        if (DialogContainer.INSTANCE.keyPressed(i, j, k)) {
+    public void keyPressed(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
+        if (DialogContainer.INSTANCE.keyPressed(keyEvent)) {
             cir.setReturnValue(true);
         }
     }
@@ -127,13 +130,13 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             method = "keyPressed",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
+                    target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z"
             )
     )
-    public boolean redirectSuper(Screen instance, int i, int j, int k) {
-        return i != GLFW.GLFW_KEY_UP &&
-                i != GLFW.GLFW_KEY_DOWN &&
-                super.keyPressed(i, j, k);
+    public boolean redirectSuper(Screen instance, KeyEvent keyEvent) {
+        return keyEvent.key() != GLFW.GLFW_KEY_UP &&
+                keyEvent.key() != GLFW.GLFW_KEY_DOWN &&
+                super.keyPressed(keyEvent);
     }
 
     /**

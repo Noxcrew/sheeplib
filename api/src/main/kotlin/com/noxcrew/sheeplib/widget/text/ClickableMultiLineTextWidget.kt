@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractStringWidget
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
 import net.minecraft.util.FormattedCharSequence
@@ -60,7 +61,7 @@ public class ClickableMultiLineTextWidget(
         }
     }
 
-    override fun onClick(mouseX: Double, mouseY: Double) {
-        styleAt(mouseX.toInt(), mouseY.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) }
+    override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean) {
+        styleAt(mouseButtonEvent.x.toInt(), mouseButtonEvent.y.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) }
     }
 }

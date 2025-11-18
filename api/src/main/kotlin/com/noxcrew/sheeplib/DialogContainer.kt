@@ -13,6 +13,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.gui.screens.ChatScreen
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import org.slf4j.LoggerFactory
 import kotlin.reflect.jvm.jvmName
@@ -105,9 +106,9 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry {
      * Handle mouse click in reverse order.
      * This is to match rendering order, children rendered last (at the top of the screen) handle clicks first.
      */
-    override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
+    override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
         val child = children().lastOrNull {
-            it.mouseClicked(d, e, i)
+            it.mouseClicked(mouseButtonEvent, bl)
         } ?: return false
 
         if (focused != child && child is Dialog && !child.state.isClosing) {
@@ -115,14 +116,14 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry {
             moveToTop(child)
         }
 
-        if (i == 0) {
+        if (mouseButtonEvent.button() == 0) {
             isDragging = true
         }
         return true
     }
 
-    override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean =
-        children.value.lastOrNull { it.mouseDragged(d, e, i, f, g) } != null
+    override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean =
+        children.value.lastOrNull { it.mouseDragged(mouseButtonEvent, d, e) } != null
 
     override fun isDragging(): Boolean = isDragging
 

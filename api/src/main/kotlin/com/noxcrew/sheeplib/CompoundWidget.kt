@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.gui.navigation.FocusNavigationEvent
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import kotlin.jvm.optionals.getOrNull
 
@@ -87,23 +88,23 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
     // --
     // Mouse
     // --
-    public override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
-        if (getChildAt(d, e)
+    public override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
+        if (getChildAt(mouseButtonEvent.x, mouseButtonEvent.y)
                 .getOrNull()
-                ?.takeIf { it.mouseClicked(d, e, i) }
+                ?.takeIf { it.mouseClicked(mouseButtonEvent, bl) }
                 ?.also { setFocused(it) } != null
         ) return true
         setFocused(null)
         return false
     }
 
-    public override fun mouseReleased(d: Double, e: Double, i: Int): Boolean =
-        super<ContainerEventHandler>.mouseReleased(d, e, i)
+    public override fun mouseReleased(mouseButtonEvent: MouseButtonEvent): Boolean =
+        super<ContainerEventHandler>.mouseReleased(mouseButtonEvent)
 
-    public override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean =
+    public override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean =
         getChildAt(d, e)
             .getOrNull()
-            ?.mouseDragged(d, e, i, f, g) == true
+            ?.mouseDragged(mouseButtonEvent, d, e) == true
 
 
     private var isDragging: Boolean = false

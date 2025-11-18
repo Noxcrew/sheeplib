@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.StringWidget
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 
 /**
@@ -18,12 +19,11 @@ public class ClickableTextWidget(component: Component, font: Font) : StringWidge
         active = true
     }
 
-    override fun mouseClicked(d: Double, e: Double, i: Int): Boolean {
+    override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
         return super.mouseClicked(
-            d,
-            e,
-            i
-        ) && message.styleAtMouseX(d.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) } == true
+            mouseButtonEvent,
+            bl
+        ) && message.styleAtMouseX(mouseButtonEvent.x.toInt())?.let { Minecraft.getInstance().screen?.handleComponentClicked(it) } == true
     }
 
 
