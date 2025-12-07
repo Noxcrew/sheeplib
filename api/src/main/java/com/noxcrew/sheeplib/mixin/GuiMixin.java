@@ -29,7 +29,7 @@ public class GuiMixin {
                     target = "Lnet/minecraft/client/gui/Gui;renderTabList(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V"
             ))
     public void render(GuiGraphics graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        // Only render when not in a chat screen, otherwise
+        // Only render when not in a chat screen, otherwise chat is rendered over the top of dialogs.
         if (!(this.minecraft.screen instanceof ChatScreen)) {
             DialogContainer.INSTANCE.render(graphics, 0, 0, deltaTracker.getGameTimeDeltaTicks());
         }
