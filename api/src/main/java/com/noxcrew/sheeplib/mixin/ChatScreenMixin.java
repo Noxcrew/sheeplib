@@ -36,7 +36,7 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
      */
     @Inject(
             method = "init",
-            at = @At("TAIL")
+            at = @At("HEAD")
     )
     public void init(CallbackInfo ci) {
         this.addWidget(DialogContainer.INSTANCE);
