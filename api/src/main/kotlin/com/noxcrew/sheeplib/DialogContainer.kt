@@ -20,7 +20,7 @@ import kotlin.reflect.jvm.jvmName
 /**
  * The container for all open dialogs.
  */
-public object DialogContainer : ContainerEventHandler, NarratableEntry {
+public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderable {
 
     private val minecraft = Minecraft.getInstance()
     private val logger = LoggerFactory.getLogger("SheepLib")
@@ -35,13 +35,13 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry {
     private var isDragging: Boolean = false
 
     /** Renders all opened dialogs. */
-    public fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
+    public override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
         val cursorIsActive = minecraft?.screen is ChatScreen
 
         val childX = if (cursorIsActive) minecraft.mouseHandler.getScaledXPos(minecraft.window) else -1
         val childY = if (cursorIsActive) minecraft.mouseHandler.getScaledYPos(minecraft.window) else -1
         children.value.forEach {
-            (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), deltaTracker.gameTimeDeltaTicks)
+            (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), f)
         }
     }
 
