@@ -39,7 +39,7 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             at = @At("HEAD")
     )
     public void init(CallbackInfo ci) {
-        this.addWidget(DialogContainer.INSTANCE);
+        this.addRenderableWidget(DialogContainer.INSTANCE);
     }
 
     /**
