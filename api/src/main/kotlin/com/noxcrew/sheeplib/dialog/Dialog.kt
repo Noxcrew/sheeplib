@@ -186,6 +186,11 @@ public abstract class Dialog(
         return true
     }
 
+    override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
+        if (popup?.mouseScrolled(d, e, f, g) == true) return true
+        return super.mouseScrolled(d, e, f, g)
+    }
+
     /**
      * Renders the widget's background.
      * The default implementation renders an opaque [Theme.Colors.dialogBackground] background with a
@@ -244,7 +249,7 @@ public abstract class Dialog(
         popup?.render(graphics, i, j, f)
     }
 
-    protected companion object {
+    internal companion object {
         public const val BOTTOM_EDGE_DEAD_ZONE: Int = 20
         private const val POPUP_FOCUSED_OPACITY = 0.7f
     }
