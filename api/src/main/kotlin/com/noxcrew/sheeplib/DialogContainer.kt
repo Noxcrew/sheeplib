@@ -125,6 +125,10 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
     override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean =
         children.value.lastOrNull { it.mouseDragged(mouseButtonEvent, d, e) } != null
 
+    override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean =
+        children.value.lastOrNull { it.mouseScrolled(d, e, f, g) } != null
+
+
     override fun isDragging(): Boolean = isDragging
 
     override fun setDragging(bl: Boolean) {
