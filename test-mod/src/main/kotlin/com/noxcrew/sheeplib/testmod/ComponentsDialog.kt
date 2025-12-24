@@ -34,7 +34,7 @@ public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Ac
 
         DropdownButton(
             this@ComponentsDialog,
-            (0..10).map { "Dropdown $it" },
+            (0..100).map { "Dropdown $it" },
             displayMapper = Component::literal
         ).at(4, 0)
 

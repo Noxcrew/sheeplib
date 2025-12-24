@@ -7,9 +7,12 @@ import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.util.withOuterPadding
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.network.chat.Component
+import kotlin.math.roundToInt
+import kotlin.math.sign
 
 /**
  * A dropdown button widget that displays a list of options in a popup dialog.
@@ -87,21 +90,44 @@ public class DropdownButton<T : Any>(
             init()
         }
 
+        private var scroll = 0
+        private var pageSize = 0
+
+        override fun renderBackground(graphics: GuiGraphics) {
+            if (pageSize >= options.size) return
+            val scrollbarHeight = (height * pageSize.toFloat() / options.size).roundToInt()
+            val scrollbarY = y + ((height - scrollbarHeight) * scroll / (options.size - pageSize))
+
+            graphics.fill(
+                x + width + 1,
+                scrollbarY,
+                x + width + 2,
+                scrollbarY + scrollbarHeight,
+            theme.colors.textSecondary
+            )
+        }
 
         override fun layout(): Layout {
             val buttonHeight = Minecraft.getInstance().font.lineHeight + 3
-            this@SelectionPopup.height = buttonHeight * options.size
+            pageSize = (Minecraft.getInstance().window.guiScaledHeight - BOTTOM_EDGE_DEAD_ZONE) / buttonHeight
+
+            this@SelectionPopup.height = buttonHeight * options.size.coerceAtMost(pageSize)
+            val isScrolling = options.size > pageSize
 
             return linear(LinearLayout.Orientation.VERTICAL) {
-                options.forEach {
-                    ThemedButton(
-                        displayMapper(it),
-                        width = this@DropdownButton.width,
-                        height = buttonHeight,
-                    ) {
-                        select(it)
-                    }.add(LayoutConstants.CENTRE)
-                }
+                options
+                    .let {
+                        if (isScrolling) it.drop(scroll).take(pageSize) else it
+                    }
+                    .forEach {
+                        ThemedButton(
+                            displayMapper(it),
+                            width = this@DropdownButton.width,
+                            height = buttonHeight,
+                        ) {
+                            select(it)
+                        }.add(LayoutConstants.LEFT)
+                    }
             }
         }
 
@@ -116,6 +142,16 @@ public class DropdownButton<T : Any>(
                 return false
             }
             return super.mouseClicked(d, e, i)
+        }
+
+        override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
+            if (this@DropdownButton.isHoveredOrFocused) {
+                val oldScroll = scroll
+                scroll = (scroll + g.sign.toInt()).coerceIn(0, (options.size - pageSize).coerceAtLeast(0))
+                if (oldScroll != scroll) init()
+                return true
+            }
+            return super.mouseScrolled(d, e, f, g)
         }
     }
 }
