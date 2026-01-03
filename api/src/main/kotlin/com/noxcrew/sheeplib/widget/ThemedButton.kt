@@ -1,5 +1,7 @@
 package com.noxcrew.sheeplib.widget
 
+import com.mojang.blaze3d.systems.RenderSystem
+import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.Minecraft
@@ -66,19 +68,19 @@ public open class ThemedButton(
         val y = y + (getHeight() / 2) - (minecraft.font.lineHeight / 2)
         val maxWidth = maxTextWidth()
 
-
-
         when {
             messageWidth > maxWidth && scrollText -> {
-                renderScrollingString(
-                    graphics,
-                    minecraft.font,
+                val renderer = graphics.textRendererForWidget(
+                    this, GuiGraphics.HoveredTextEffects.TOOLTIP_AND_CURSOR
+                )
+                renderer.acceptScrolling(
                     message,
+                    x + theme.dimensions.paddingInner + maxWidth / 2,
                     x + theme.dimensions.paddingInner,
-                    getY(),
                     x + theme.dimensions.paddingInner + maxWidth,
+                    getY(),
                     getY() + getHeight(),
-                    color
+                    if (isEnabled) renderer.defaultParameters() else renderer.defaultParameters().withOpacity(Dialog.POPUP_FOCUSED_OPACITY)
                 )
             }
 

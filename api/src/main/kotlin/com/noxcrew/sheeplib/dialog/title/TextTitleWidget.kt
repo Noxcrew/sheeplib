@@ -5,9 +5,9 @@ import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.layout.CanvasLayout
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.IconButton
-import com.noxcrew.sheeplib.widget.text.ClickableTextWidget
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.navigation.ScreenRectangle
 import net.minecraft.network.chat.Component
 
@@ -43,7 +43,7 @@ public class TextTitleWidget(
         FONT_HEIGHT + theme.dimensions.paddingOuter * 2,
     ).apply {
         val font = Minecraft.getInstance().font
-        ClickableTextWidget(
+        StringWidget(
             component,
             font,
         ).at(top = theme.dimensions.paddingOuter, left = theme.dimensions.paddingOuter)

@@ -10,7 +10,7 @@ import com.noxcrew.sheeplib.util.Icon
 import com.noxcrew.sheeplib.util.lighten
 import com.noxcrew.sheeplib.util.opaqueColor
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 private val colors = ColorsImpl(
     dialogBackground = 0x2c2c2c.opaqueColor(),
@@ -58,12 +58,12 @@ public val DefaultTheme: ThemeImpl = ThemeImpl(
         ),
     ),
     IconsImpl(
-        dropdown = Icon(ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/dropdown.png"), 4, 7),
+        dropdown = Icon(Identifier.fromNamespaceAndPath("sheeplib", "textures/dropdown.png"), 4, 7),
         close = Icon(
-            ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/close.png"),
+            Identifier.fromNamespaceAndPath("sheeplib", "textures/close.png"),
             5,
             5,
-            ResourceLocation.fromNamespaceAndPath("sheeplib", "textures/close_hover.png"),
+            Identifier.fromNamespaceAndPath("sheeplib", "textures/close_hover.png"),
         )
     ),
     true,

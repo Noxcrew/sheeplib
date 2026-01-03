@@ -3,8 +3,8 @@ package com.noxcrew.sheeplib.widget.progress
 import com.noxcrew.sheeplib.CompoundWidget
 import com.noxcrew.sheeplib.layout.linear
 import com.noxcrew.sheeplib.theme.Themed
-import com.noxcrew.sheeplib.widget.text.ClickableTextWidget
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.network.chat.Component
@@ -44,7 +44,7 @@ public class ProgressWidget(width: Int, height: Int, theme: Themed) : CompoundWi
 
     private val progressBar = ProgressBar(width, PROGRESS_BAR_WIDTH, this)
 
-    private val text = ClickableTextWidget(progress.text, font)
+    private val text = StringWidget(progress.text, font)
 
     override val layout: Layout = linear(LinearLayout.Orientation.VERTICAL) {
         +text

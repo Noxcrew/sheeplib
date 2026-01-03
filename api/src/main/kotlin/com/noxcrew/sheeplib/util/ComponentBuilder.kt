@@ -35,6 +35,16 @@ public class ComponentBuilder(public val component: MutableComponent) {
         }
 
     /**
+     * Whether the component is italic.
+     */
+    public var italic: Boolean
+        get() = component.style.isItalic
+        set(value) {
+            component.style = component.style.withItalic(value)
+        }
+
+
+    /**
      * Whether the component is underlined.
      */
     public var underline: Boolean
@@ -131,7 +141,7 @@ public class ComponentBuilder(public val component: MutableComponent) {
          */
         public inline fun translatable(
             key: String,
-            vararg objects: Any?,
+            vararg objects: Any,
             builder: ComponentBuilder.() -> Unit
         ): Component =
             apply(Component.translatable(key, *objects), builder)

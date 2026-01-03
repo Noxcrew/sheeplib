@@ -15,12 +15,19 @@ public class LinearLayoutBuilder(x: Int, y: Int, orientation: Orientation, paddi
     private val layout = LinearLayout(x, y, orientation)
 
     private val _layoutSettings: LayoutSettings = LayoutSettings.defaults().apply {
-        if (orientation == Orientation.HORIZONTAL) paddingVertical(padding)
-        else paddingHorizontal(padding)
+        if (orientation == Orientation.HORIZONTAL) paddingHorizontal(padding)
+        else paddingVertical(padding)
     }
 
     public val defaultLayoutSettings: LayoutSettings
         get() = _layoutSettings.copy()
+
+    /**
+     * Sets the alignment for the default layout settings.
+     */
+    public fun defaultAlignment(align: Float) {
+        _layoutSettings.align(align, align)
+    }
 
     /**
      * Adds an element to the layout.

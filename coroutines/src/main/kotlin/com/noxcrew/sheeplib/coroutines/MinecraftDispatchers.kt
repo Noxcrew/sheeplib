@@ -2,7 +2,7 @@ package com.noxcrew.sheeplib.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.asCoroutineDispatcher
-import net.minecraft.Util
+import net.minecraft.util.Util
 
 
 /** Some coroutine dispatchers, backed by Minecraft's own thread pools. */
