@@ -23,6 +23,13 @@ public class LinearLayoutBuilder(x: Int, y: Int, orientation: Orientation, paddi
         get() = _layoutSettings.copy()
 
     /**
+     * Sets the alignment for the default layout settings.
+     */
+    public fun defaultAlignment(align: Float) {
+        _layoutSettings.align(align, align)
+    }
+
+    /**
      * Adds an element to the layout.
      *
      * @param layoutSettings the layout settings to use.

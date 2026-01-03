@@ -250,8 +250,8 @@ public abstract class Dialog(
     }
 
     internal companion object {
-        public const val BOTTOM_EDGE_DEAD_ZONE: Int = 20
-        private const val POPUP_FOCUSED_OPACITY = 0.7f
+        internal const val BOTTOM_EDGE_DEAD_ZONE: Int = 20
+        internal const val POPUP_FOCUSED_OPACITY = 0.7f
     }
 
     /** A dialog's state. */
