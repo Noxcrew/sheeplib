@@ -1,5 +1,6 @@
 package com.noxcrew.sheeplib.widget
 
+import com.mojang.blaze3d.systems.RenderSystem
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.Minecraft
@@ -70,15 +71,15 @@ public open class ThemedButton(
 
         when {
             messageWidth > maxWidth && scrollText -> {
-                renderScrollingString(
-                    graphics,
-                    minecraft.font,
+                graphics.textRendererForWidget(
+                    this, GuiGraphics.HoveredTextEffects.TOOLTIP_AND_CURSOR
+                ).acceptScrollingWithDefaultCenter(
                     message,
                     x + theme.dimensions.paddingInner,
                     getY(),
                     x + theme.dimensions.paddingInner + maxWidth,
                     getY() + getHeight(),
-                    color
+//                    color
                 )
             }
 

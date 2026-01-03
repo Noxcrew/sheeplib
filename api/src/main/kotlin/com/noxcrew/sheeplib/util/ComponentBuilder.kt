@@ -35,6 +35,16 @@ public class ComponentBuilder(public val component: MutableComponent) {
         }
 
     /**
+     * Whether the component is italic.
+     */
+    public var italic: Boolean
+        get() = component.style.isItalic
+        set(value) {
+            component.style = component.style.withItalic(value)
+        }
+
+
+    /**
      * Whether the component is underlined.
      */
     public var underline: Boolean
