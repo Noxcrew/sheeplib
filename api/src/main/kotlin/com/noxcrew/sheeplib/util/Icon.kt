@@ -2,8 +2,7 @@ package com.noxcrew.sheeplib.util
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.renderer.RenderPipelines
-import net.minecraft.client.renderer.RenderType
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * An icon for use as a GUI texture.
@@ -14,10 +13,10 @@ import net.minecraft.resources.ResourceLocation
  * @param width the texture's native width in pixels
  */
 public data class Icon(
-    val location: ResourceLocation,
+    val location: Identifier,
     val height: Int,
     val width: Int,
-    val hoverLocation: ResourceLocation = location,
+    val hoverLocation: Identifier = location,
 ) {
 
     /**

@@ -131,7 +131,7 @@ public class ComponentBuilder(public val component: MutableComponent) {
          */
         public inline fun translatable(
             key: String,
-            vararg objects: Any?,
+            vararg objects: Any,
             builder: ComponentBuilder.() -> Unit
         ): Component =
             apply(Component.translatable(key, *objects), builder)
