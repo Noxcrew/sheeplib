@@ -8,10 +8,10 @@ import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.DropdownButton
 import com.noxcrew.sheeplib.widget.SliderWidget
+import com.noxcrew.sheeplib.widget.TextWidgets
 import com.noxcrew.sheeplib.widget.ThemedButton
 import com.noxcrew.sheeplib.widget.ToggleButton
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.network.chat.Component
@@ -32,7 +32,7 @@ public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Ac
         defaultAlignment(0.5f)
         val font = Minecraft.getInstance().font
 
-        +StringWidget(Component.literal("Buttons"), font)
+        +TextWidgets.singleLine(Component.literal("Buttons"), font)
         +ThemedButton(Component.literal("Default")) {}
         +ThemedButton(
             Component.literal("Positive"),

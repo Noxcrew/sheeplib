@@ -8,6 +8,7 @@ import com.noxcrew.sheeplib.layout.linear
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.util.ComponentBuilder
+import com.noxcrew.sheeplib.widget.TextWidgets
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.MultiLineTextWidget
 import net.minecraft.client.gui.components.StringWidget
@@ -22,22 +23,21 @@ public class StringsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Activ
     override val title: DialogTitleWidget = TextTitleWidget(this, literal("Strings"))
 
     override fun layout(): Layout = linear(LinearLayout.Orientation.VERTICAL) {
-        val font = Minecraft.getInstance().font
-
-        +StringWidget(literal("Simple string"), font).setMaxWidth(100)
-        +StringWidget(literal("CLAMPED Really long string that is too big to fit in the button"), font).setMaxWidth(100)
-        +StringWidget(literal("SCROLL Really long string that is too big to fit in the button"), font).setMaxWidth(
-            100,
-            StringWidget.TextOverflow.SCROLLING
+        +TextWidgets.singleLine(literal("Simple string"), maxWidth = 100)
+        +TextWidgets.singleLine(literal("CLAMPED Really long string that is too big to fit in the button"), maxWidth = 100)
+        +TextWidgets.singleLine(
+            literal("SCROLL Really long string that is too big to fit in the button"),
+            maxWidth = 100,
+            overflow = StringWidget.TextOverflow.SCROLLING
         )
 
-        +MultiLineTextWidget(literal("Multi line 1\nMulti line 2\nMulti line 3"), font).setMaxWidth(100)
-        +MultiLineTextWidget(
+        +TextWidgets.multiLine(literal("Multi line 1\nMulti line 2\nMulti line 3"), maxWidth = 100)
+        +TextWidgets.multiLine(
             literal("Multi line 1\nMulti line 2 but really long, too big to fit\nMulti line 3"),
-            font
-        ).setMaxWidth(100)
+            maxWidth = 100
+        )
 
-        +StringWidget(
+        +TextWidgets.singleLine(
             ComponentBuilder.build {
                 +"literal"
                 space()
@@ -49,7 +49,6 @@ public class StringsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Activ
                 space()
                 +"literal"
             },
-            font
         )
     }
 }
