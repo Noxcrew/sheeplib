@@ -102,7 +102,7 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
         super<ContainerEventHandler>.mouseReleased(mouseButtonEvent)
 
     public override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean =
-        getChildAt(d, e)
+        getChildAt(mouseButtonEvent.x, mouseButtonEvent.y)
             .getOrNull()
             ?.mouseDragged(mouseButtonEvent, d, e) == true
 
