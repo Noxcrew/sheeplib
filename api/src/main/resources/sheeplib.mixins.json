@@ -4,6 +4,7 @@
         "AbstractWidgetMixin",
         "ChatScreenMixin",
         "GuiGraphicsMixin",
-        "GuiMixin"
+        "GuiMixin",
+        "ScreenAccessor"
     ]
 }

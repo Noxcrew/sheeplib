@@ -5,10 +5,10 @@ import com.noxcrew.sheeplib.dialog.title.TextTitleWidget
 import com.noxcrew.sheeplib.layout.grid
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
+import com.noxcrew.sheeplib.widget.TextWidgets
 import com.noxcrew.sheeplib.widget.ThemedButton
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.Button
-import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.GridLayout
 import net.minecraft.network.chat.Component
 
@@ -23,7 +23,7 @@ public class MyFirstDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Activ
 
     override fun layout(): GridLayout = grid {
         // Some static text.
-        StringWidget(Component.literal("Hello world!"), Minecraft.getInstance().font).at(0, 0)
+        TextWidgets.singleLine(Component.literal("Hello world!"), Minecraft.getInstance().font).at(0, 0)
 
         // A close button.
         ThemedButton(
