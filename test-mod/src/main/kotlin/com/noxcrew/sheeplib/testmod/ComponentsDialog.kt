@@ -9,6 +9,7 @@ import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.DropdownButton
 import com.noxcrew.sheeplib.widget.SliderWidget
 import com.noxcrew.sheeplib.widget.ThemedButton
+import com.noxcrew.sheeplib.widget.ToggleButton
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.Layout
@@ -17,6 +18,14 @@ import net.minecraft.network.chat.Component
 
 /** A dialog showcasing available components. */
 public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Active {
+
+    private enum class TestEnum {
+        One,
+        Two,
+        Three,
+        Four,
+        Five,
+    }
 
     override val title: DialogTitleWidget = TextTitleWidget(this, Component.literal("Components"))
     override fun layout(): Layout = linear(LinearLayout.Orientation.VERTICAL) {
@@ -44,6 +53,7 @@ public class ComponentsDialog(x: Int, y: Int) : Dialog(x, y), Themed by Theme.Ac
             displayMapper = Component::literal
         )
 
+        +ToggleButton.enum<TestEnum>("") {}
 
         +SliderWidget(100, 0, 8, this@ComponentsDialog, initial = -1)
     }

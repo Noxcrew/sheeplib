@@ -40,6 +40,7 @@ public open class ThemedButton(
     private var messageWidth: Int = Minecraft.getInstance().font.width(message)
 
     override fun setMessage(component: Component) {
+        super.setMessage(component)
         messageWidth = Minecraft.getInstance().font.width(message)
     }
 
