@@ -165,7 +165,7 @@ public abstract class Dialog(
 
     override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
         if ((popup?.mouseClicked(mouseButtonEvent, bl) == true) || super.mouseClicked(mouseButtonEvent, bl)) return true
-        if (!isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)) return false
+        if (mouseButtonEvent.button() != 0 || !isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)) return false
         isDragging = true
         dragStartX = x - mouseButtonEvent.x.toInt()
         dragStartY = y - mouseButtonEvent.y.toInt()
@@ -173,8 +173,10 @@ public abstract class Dialog(
     }
 
     override fun mouseReleased(mouseButtonEvent: MouseButtonEvent): Boolean {
-        popup?.mouseReleased(mouseButtonEvent)
-        dragStartX = -1
+        if (mouseButtonEvent.button() == 0) {
+            popup?.mouseReleased(mouseButtonEvent)
+            dragStartX = -1
+        }
         return super.mouseReleased(mouseButtonEvent)
     }
 
