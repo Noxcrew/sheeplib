@@ -40,21 +40,16 @@ public class ToggleButton<T>(
         )
     }
 
-    private lateinit var _message: Component
-
     /** The currently selected entry. */
     public var current: Entry<T> =
         entries.getOrNull(currentIndex) ?: throw IllegalArgumentException("Entries must not be empty")
         private set(value) {
             field = value
-            _message = prefix?.copy()?.append(value.text) ?: value.text
+            message = prefix?.copy()?.append(value.text) ?: value.text
         }
-
 
     /** Delegates to [current.contents][Entry.contents]. */
     public operator fun getValue(thisRef: Any?, property: KProperty<*>): T = current.contents
-
-    override fun getMessage(): Component = _message
 
     init {
         // Set the current to update the text.
