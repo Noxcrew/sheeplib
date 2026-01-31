@@ -148,7 +148,7 @@ public class DropdownButton<T : Any>(
         override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean {
             if (this@DropdownButton.isHoveredOrFocused) {
                 val oldScroll = scroll
-                scroll = (scroll + g.sign.toInt()).coerceIn(0, (options.size - pageSize).coerceAtLeast(0))
+                scroll = (scroll - g.sign.toInt()).coerceIn(0, (options.size - pageSize).coerceAtLeast(0))
                 if (oldScroll != scroll) init()
                 return true
             }
