@@ -25,7 +25,7 @@ public class ButtonCollectionsDialog(x: Int, y: Int) : Dialog(x, y), Themed by T
 
         /** Adds a message to the chat window. */
         private fun pushChatMessage(message: String) {
-            Minecraft.getInstance().gui.chat.addServerSystemMessage(Component.literal(message))
+            Minecraft.getInstance().gui.hud.chat.addServerSystemMessage(Component.literal(message))
         }
     }
 

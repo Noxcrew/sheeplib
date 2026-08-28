@@ -36,7 +36,7 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
 
     /** Renders all opened dialogs. */
     public override fun extractRenderState(guiGraphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
-        val cursorIsActive = minecraft?.screen is ChatScreen
+        val cursorIsActive = minecraft?.gui?.screen() is ChatScreen
 
         val childX = if (cursorIsActive) minecraft.mouseHandler.getScaledXPos(minecraft.window) else -1
         val childY = if (cursorIsActive) minecraft.mouseHandler.getScaledYPos(minecraft.window) else -1
@@ -55,7 +55,7 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
                 dialog.initIfNeeded()
                 focused = dialog
             } catch (ex: Throwable) {
-                Minecraft.getInstance().gui.chat.addClientSystemMessage(
+                Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(
                     Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
                 )
                 logger.error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
@@ -98,7 +98,7 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
             "New focused element is not in the container"
         }
         focused = dialog
-        minecraft.screen?.focused = this
+        minecraft.gui?.screen()?.focused = this
     }
 
     /**

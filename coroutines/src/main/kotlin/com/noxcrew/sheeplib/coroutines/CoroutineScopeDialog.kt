@@ -30,7 +30,7 @@ public abstract class CoroutineScopeDialog(
                 CoroutineName("$this") +
                 dispatcher +
                 CoroutineExceptionHandler { _, ex ->
-                    Minecraft.getInstance().gui.chat.addClientSystemMessage(
+                    Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(
                         Component.translatable("sheeplib.error.coroutine").withStyle { it.withColor(ChatFormatting.RED) }
                     )
                     LoggerFactory.getLogger("SheepLib").error("Exception caught in dialog coroutine scope (${this::class.jvmName}):\n" + ex.stackTraceToString())

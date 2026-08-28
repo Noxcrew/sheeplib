@@ -63,7 +63,7 @@ public abstract class Dialog(
         try {
             dialog.initIfNeeded()
         } catch (ex: Throwable) {
-            Minecraft.getInstance().gui.chat.addClientSystemMessage(
+            Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(
                 Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
             )
             LoggerFactory.getLogger("SheepLib").error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())

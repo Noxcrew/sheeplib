@@ -69,6 +69,10 @@ public class CanvasLayout(width: Int, height: Int, private val padding: Int = 0)
         }
     }
 
+    override fun removeChildren() {
+        children.clear()
+    }
+
     override fun visitChildren(consumer: Consumer<LayoutElement>) {
         children
             .map(ChildWrapper::element)

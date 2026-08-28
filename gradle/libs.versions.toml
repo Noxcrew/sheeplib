@@ -1,8 +1,8 @@
 [versions]
-minecraft = "26.1.2"
+minecraft = "26.2"
 fabric-loader = "0.19.2"
-fabric-api = "0.146.1+26.1.2" # for the test mod only
-fabric-loom = "1.16-SNAPSHOT"
+fabric-api = "0.153.0+26.2" # for the test mod only
+fabric-loom = "1.17-SNAPSHOT"
 
 kotlin = "2.3.0"
 fabric-kotlin = "1.13.8+kotlin.2.3.0"
