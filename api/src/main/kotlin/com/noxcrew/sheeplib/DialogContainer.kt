@@ -1,5 +1,6 @@
 package com.noxcrew.sheeplib
 
+import com.mojang.blaze3d.platform.InputConstants
 import com.noxcrew.sheeplib.dialog.Dialog
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
@@ -115,7 +116,7 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
             moveToTop(child)
         }
 
-        if (mouseButtonEvent.button() == 0) {
+        if (mouseButtonEvent.button() == InputConstants.MOUSE_BUTTON_LEFT) {
             isDragging = true
         }
         return true
