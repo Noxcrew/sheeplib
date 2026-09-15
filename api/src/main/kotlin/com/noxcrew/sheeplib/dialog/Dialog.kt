@@ -1,5 +1,6 @@
 package com.noxcrew.sheeplib.dialog
 
+import com.mojang.blaze3d.platform.InputConstants
 import com.noxcrew.sheeplib.AbstractWidgetExt
 import com.noxcrew.sheeplib.CompoundWidget
 import com.noxcrew.sheeplib.DialogContainer
@@ -66,7 +67,8 @@ public abstract class Dialog(
             Minecraft.getInstance().gui.hud.chat.addClientSystemMessage(
                 Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
             )
-            LoggerFactory.getLogger("SheepLib").error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
+            LoggerFactory.getLogger("SheepLib")
+                .error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
             return
         }
 
@@ -165,7 +167,9 @@ public abstract class Dialog(
 
     override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Boolean {
         if ((popup?.mouseClicked(mouseButtonEvent, bl) == true) || super.mouseClicked(mouseButtonEvent, bl)) return true
-        if (mouseButtonEvent.button() != 0 || !isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)) return false
+        if (mouseButtonEvent.button() != InputConstants.MOUSE_BUTTON_LEFT ||
+            !isMouseOver(mouseButtonEvent.x, mouseButtonEvent.y)
+        ) return false
         isDragging = true
         dragStartX = x - mouseButtonEvent.x.toInt()
         dragStartY = y - mouseButtonEvent.y.toInt()
@@ -173,7 +177,7 @@ public abstract class Dialog(
     }
 
     override fun mouseReleased(mouseButtonEvent: MouseButtonEvent): Boolean {
-        if (mouseButtonEvent.button() == 0) {
+        if (mouseButtonEvent.button() == InputConstants.MOUSE_BUTTON_LEFT) {
             popup?.mouseReleased(mouseButtonEvent)
             dragStartX = -1
         }
@@ -181,7 +185,12 @@ public abstract class Dialog(
     }
 
     override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Boolean {
-        if ((popup?.mouseDragged(mouseButtonEvent, d, e) == true) || super.mouseDragged(mouseButtonEvent, d, e)) return true
+        if ((popup?.mouseDragged(mouseButtonEvent, d, e) == true) || super.mouseDragged(
+                mouseButtonEvent,
+                d,
+                e
+            )
+        ) return true
         if (!isDragging || dragStartX == -1) return false
         x = dragStartX + mouseButtonEvent.x.toInt()
         y = dragStartY + mouseButtonEvent.y.toInt()
