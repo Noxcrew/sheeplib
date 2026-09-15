@@ -1,5 +1,6 @@
 package com.noxcrew.sheeplib.mixin;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.noxcrew.sheeplib.DialogContainer;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -9,7 +10,6 @@ import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -134,8 +134,8 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
             )
     )
     public boolean redirectSuper(Screen instance, KeyEvent keyEvent) {
-        return keyEvent.key() != GLFW.GLFW_KEY_UP &&
-                keyEvent.key() != GLFW.GLFW_KEY_DOWN &&
+        return keyEvent.key() != InputConstants.KEY_UP &&
+                keyEvent.key() != InputConstants.KEY_DOWN &&
                 super.keyPressed(keyEvent);
     }
 
