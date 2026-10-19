@@ -22,6 +22,11 @@
   ],
   "mixins": [ "sheeplib.mixins.json" ],
   "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.noxcrew.sheeplib.SheepLibClient"
+    ]
+  },
   "accessWidener": "sheeplib.classTweaker",
   "custom": {
     "loom:injected_interfaces": {
