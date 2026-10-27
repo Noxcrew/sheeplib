@@ -68,6 +68,7 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
 
     /**
      * Delegate mouse click to the focused child, and then all other children, before handling.
+     * The clicked child takes focus, so clicking the chat input after a dialog moves typing back to chat.
      */
     @Inject(
             method = "mouseClicked",
@@ -77,6 +78,9 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
     public void mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl, CallbackInfoReturnable<Boolean> cir) {
         for (final var child : children()) {
             if (child != null && child.mouseClicked(mouseButtonEvent, bl)) {
+                if (child.shouldTakeFocusAfterInteraction()) {
+                    setFocused(child);
+                }
                 cir.setReturnValue(true);
                 return;
             }

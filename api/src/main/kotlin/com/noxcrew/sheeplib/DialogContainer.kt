@@ -7,12 +7,14 @@ import kotlinx.atomicfu.update
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.components.Renderable
 import net.minecraft.client.gui.components.events.ContainerEventHandler
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.gui.screens.ChatScreen
+import net.minecraft.client.input.KeyEvent
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import org.slf4j.LoggerFactory
@@ -128,6 +130,18 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
     override fun mouseScrolled(d: Double, e: Double, f: Double, g: Double): Boolean =
         children.value.lastOrNull { it.mouseScrolled(d, e, f, g) } != null
 
+    /**
+     * Pass key presses to the focused dialog.
+     * Confirmation keys are consumed while a text input is focused, so they don't submit the chat screen's input.
+     */
+    override fun keyPressed(keyEvent: KeyEvent): Boolean {
+        if (super.keyPressed(keyEvent)) return true
+        if (!keyEvent.isConfirmation) return false
+
+        var element: GuiEventListener? = focused
+        while (element is ContainerEventHandler) element = element.focused
+        return element is EditBox
+    }
 
     override fun isDragging(): Boolean = isDragging
 
