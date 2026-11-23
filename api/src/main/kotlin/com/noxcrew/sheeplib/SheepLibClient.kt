@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.ChatScreen
 import net.minecraft.resources.Identifier
 
-public class SheepLibClient : ClientModInitializer {
+public object SheepLibClient : ClientModInitializer {
     override fun onInitializeClient() {
         HudElementRegistry.attachElementBefore(
             VanillaHudElements.CHAT,
