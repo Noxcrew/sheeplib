@@ -1,6 +1,7 @@
 package com.noxcrew.sheeplib.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.noxcrew.sheeplib.ChatScreenExt;
 import com.noxcrew.sheeplib.DialogContainer;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Adaptations to allow {@link ChatScreen} to handle multiple children.
  */
 @Mixin(ChatScreen.class)
-public abstract class ChatScreenMixin extends Screen implements GuiEventListener {
+public abstract class ChatScreenMixin extends Screen implements GuiEventListener, ChatScreenExt {
 
     @Shadow
     protected EditBox input;
@@ -77,9 +78,27 @@ public abstract class ChatScreenMixin extends Screen implements GuiEventListener
     public void mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl, CallbackInfoReturnable<Boolean> cir) {
         for (final var child : children()) {
             if (child != null && child.mouseClicked(mouseButtonEvent, bl)) {
+                sheeplib$syncFocus();
                 cir.setReturnValue(true);
                 return;
             }
+        }
+        sheeplib$syncFocus();
+    }
+
+    /**
+     * Vanilla assumes a single text field, and unfocusing any text field releases OS text input.
+     * So the dialog container only gets focus while one of its widgets takes text input.
+     */
+    @Override
+    public void sheeplib$syncFocus() {
+        if (DialogContainer.INSTANCE.hasTextInputFocus()) {
+            if (getFocused() != DialogContainer.INSTANCE) setFocused(DialogContainer.INSTANCE);
+        } else if (getFocused() != input) {
+            setFocused(input);
+        } else {
+            // A dialog text field may have released text input.
+            input.setFocused(true);
         }
     }
 

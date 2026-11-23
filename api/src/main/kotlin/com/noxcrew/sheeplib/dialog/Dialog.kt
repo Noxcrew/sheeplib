@@ -103,6 +103,7 @@ public abstract class Dialog(
         } ?: run { DialogContainer -= this }
         onClose()
         state = State.CLOSED
+        DialogContainer.syncChatScreenFocus()
     }
 
     /** This method is called before the dialog is closed. By default, it does nothing. */

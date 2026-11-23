@@ -71,7 +71,27 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
     /** Removes a dialog from the container. */
     public operator fun <T> minusAssign(dialog: T) where T : GuiEventListener, T : Renderable {
         children.update { it - dialog }
-        if (focused == dialog) focused = null
+        if (focused == dialog) {
+            focused = null
+            syncChatScreenFocus()
+        }
+    }
+
+    /** Returns whether the focused dialog's focused widget takes text input. */
+    public fun hasTextInputFocus(): Boolean {
+        var node: GuiEventListener? = focused
+        while (node is ContainerEventHandler) node = node.focused
+        return node?.capturesInput() == true
+    }
+
+    /** Re-syncs the chat screen's focus after dialog focus changed outside a mouse click. */
+    internal fun syncChatScreenFocus() {
+        // Dialogs can close off-thread, but focus changes call into SDL and need the main thread.
+        if (!minecraft.isSameThread) {
+            minecraft.execute(::syncChatScreenFocus)
+            return
+        }
+        (minecraft.gui.screen() as? ChatScreenExt)?.`sheeplib$syncFocus`()
     }
 
     /** Moves a dialog above all other dialogs. */
@@ -98,8 +118,8 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
         require(dialog in children.value) {
             "New focused element is not in the container"
         }
+        // The chat screen's focus is managed by ChatScreenExt.syncFocus.
         focused = dialog
-        minecraft.gui?.screen()?.focused = this
     }
 
     /**
