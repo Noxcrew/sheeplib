@@ -1,6 +1,6 @@
 import org.gradle.accessors.dm.LibrariesForLibs
 
-val VERSION = "1.5.4"
+val VERSION = "1.5.5"
 
 val isBuildingSnapshot = System.getenv("IS_BUILDING_SNAPSHOT") == "true"
 
